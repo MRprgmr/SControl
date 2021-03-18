@@ -1,0 +1,39 @@
+<RCC>
+  <qresource prefix="Icons">
+    <file>Icons/calendar2.png</file>
+    <file>Icons/save.png</file>
+    <file>Icons/copy.png</file>
+    <file>Icons/key.png</file>
+    <file>Icons/transparent.png</file>
+    <file>Icons/cart.jpg</file>
+    <file>Icons/telegram.png</file>
+    <file>Icons/icon.png</file>
+    <file>Icons/volume_on.png</file>
+    <file>Icons/volume_off.png</file>
+    <file>Icons/-.png</file>
+    <file>Icons/+.png</file>
+    <file>Icons/add_class.png</file>
+    <file>Icons/add_date.png</file>
+    <file>Icons/add_pupil.png</file>
+    <file>Icons/came.png</file>
+    <file>Icons/camera.png</file>
+    <file>Icons/cancel.png</file>
+    <file>Icons/cancel2.png</file>
+    <file>Icons/class.png</file>
+    <file>Icons/clock.png</file>
+    <file>Icons/delete_icon.png</file>
+    <file>Icons/drop-down-arrow.png</file>
+    <file>Icons/edit.png</file>
+    <file>Icons/female.png</file>
+    <file>Icons/laptop.png</file>
+    <file>Icons/leave.png</file>
+    <file>Icons/male.png</file>
+    <file>Icons/ok.png</file>
+    <file>Icons/profile_photo.png</file>
+    <file>Icons/pupils.png</file>
+    <file>Icons/qr.png</file>
+    <file>Icons/search.png</file>
+    <file>Icons/update.png</file>
+    <file>Icons/wifi.png</file>
+  </qresource>
+</RCC>

@@ -1,0 +1,1 @@
+pyinstaller SControl.py --clean --windowed --onefile --uac-admin --icon=Icon.ico --add-data "timesbd.ttf;."
