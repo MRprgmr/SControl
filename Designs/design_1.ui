@@ -66,6 +66,9 @@
     </property>
     <item row="0" column="0">
      <layout class="QVBoxLayout" name="verticalLayout_6">
+      <property name="spacing">
+       <number>0</number>
+      </property>
       <item>
        <widget class="QTabWidget" name="tabWidget">
         <property name="font">
@@ -145,7 +148,7 @@ QTabBar::tab:top, QTabBar::tab:bottom {
          <enum>QTabWidget::Rounded</enum>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>0</number>
         </property>
         <property name="iconSize">
          <size>
@@ -184,6 +187,12 @@ QTabBar::tab:top, QTabBar::tab:bottom {
           <string>O'quvchilar</string>
          </attribute>
          <layout class="QGridLayout" name="gridLayout">
+          <property name="topMargin">
+           <number>5</number>
+          </property>
+          <property name="bottomMargin">
+           <number>5</number>
+          </property>
           <item row="0" column="0">
            <widget class="QSplitter" name="splitter">
             <property name="styleSheet">
@@ -251,6 +260,18 @@ border-bottom-right-radius: 5px;
               <string>Sinflar ro'yxati</string>
              </property>
              <layout class="QGridLayout" name="gridLayout_5">
+              <property name="leftMargin">
+               <number>5</number>
+              </property>
+              <property name="topMargin">
+               <number>8</number>
+              </property>
+              <property name="rightMargin">
+               <number>5</number>
+              </property>
+              <property name="bottomMargin">
+               <number>5</number>
+              </property>
               <item row="0" column="0">
                <widget class="QSplitter" name="splitter_2">
                 <property name="orientation">
@@ -913,6 +934,21 @@ background-color: rgb(250, 250, 250);
               <string>O'quvchilar ro'yxati</string>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout">
+              <property name="spacing">
+               <number>3</number>
+              </property>
+              <property name="leftMargin">
+               <number>5</number>
+              </property>
+              <property name="topMargin">
+               <number>5</number>
+              </property>
+              <property name="rightMargin">
+               <number>5</number>
+              </property>
+              <property name="bottomMargin">
+               <number>3</number>
+              </property>
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_2">
                 <property name="spacing">
@@ -1133,13 +1169,13 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
                  <widget class="QPushButton" name="pushButton_7">
                   <property name="minimumSize">
                    <size>
-                    <width>90</width>
+                    <width>85</width>
                     <height>32</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>110</width>
+                    <width>85</width>
                     <height>32</height>
                    </size>
                   </property>
@@ -1681,6 +1717,15 @@ o'quvchi</string>
           <string>Davomat</string>
          </attribute>
          <layout class="QVBoxLayout" name="verticalLayout_5">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>5</number>
+          </property>
+          <property name="bottomMargin">
+           <number>5</number>
+          </property>
           <item>
            <widget class="QSplitter" name="splitter_3">
             <property name="styleSheet">
@@ -1733,6 +1778,18 @@ border-bottom: none;
                  <string>Sinflar</string>
                 </property>
                 <layout class="QGridLayout" name="gridLayout_6">
+                 <property name="leftMargin">
+                  <number>5</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>10</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>5</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>5</number>
+                 </property>
                  <item row="1" column="0">
                   <widget class="QTableWidget" name="tableWidget_3">
                    <property name="font">
@@ -1847,6 +1904,18 @@ border-bottom: none;
                  <string>Status</string>
                 </property>
                 <layout class="QGridLayout" name="gridLayout_7">
+                 <property name="leftMargin">
+                  <number>5</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>10</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>5</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>5</number>
+                 </property>
                  <item row="0" column="0">
                   <widget class="QTableWidget" name="tableWidget_4">
                    <property name="font">
@@ -1954,6 +2023,9 @@ border-bottom: none;
             </widget>
             <widget class="QWidget" name="layoutWidget">
              <layout class="QVBoxLayout" name="verticalLayout_3">
+              <property name="spacing">
+               <number>3</number>
+              </property>
               <item>
                <widget class="QGroupBox" name="groupBox_7">
                 <property name="font">
@@ -1985,12 +2057,24 @@ background-color: rgb(250, 250, 250);
                  <string>Davomat</string>
                 </property>
                 <layout class="QGridLayout" name="gridLayout_4">
+                 <property name="leftMargin">
+                  <number>5</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>5</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>5</number>
+                 </property>
+                 <property name="horizontalSpacing">
+                  <number>5</number>
+                 </property>
                  <item row="0" column="0">
                   <widget class="QTableWidget" name="tableWidget_5">
                    <property name="font">
                     <font>
                      <family>Times New Roman</family>
-                     <pointsize>14</pointsize>
+                     <pointsize>13</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -2251,7 +2335,7 @@ border: 1px solid #50A5FF;
         <property name="maximumSize">
          <size>
           <width>16777215</width>
-          <height>18</height>
+          <height>16</height>
          </size>
         </property>
         <property name="styleSheet">
@@ -2294,11 +2378,15 @@ border-bottom: 1px solid rgba(124, 208, 239, 0.5);</string>
           <widget class="QLabel" name="label_4">
            <property name="font">
             <font>
-             <family>Georgia</family>
+             <family>Arial Rounded MT Bold</family>
+             <pointsize>10</pointsize>
             </font>
            </property>
+           <property name="styleSheet">
+            <string notr="true">border: none;</string>
+           </property>
            <property name="text">
-            <string>Time</string>
+            <string>18:56</string>
            </property>
           </widget>
          </item>
