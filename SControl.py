@@ -1,5 +1,6 @@
 import math
 import os
+import wmi
 import socket
 import random
 import re
@@ -7,6 +8,8 @@ import sqlite3
 import string
 import sys
 import time
+import Res_rc
+from threading import Timer, Thread
 import qr_extractor as reader
 from datetime import datetime
 from io import BytesIO
@@ -15,9 +18,9 @@ import cv2
 import numpy as np
 import qrcode
 from PIL import Image, ImageDraw, ImageFont, ImageQt
-from PyQt5.QtCore import Qt, QThread
-from PyQt5.QtGui import QPixmap, QImage, QFont, QIcon, QColor
-from PyQt5.QtWidgets import QMainWindow, QMessageBox, QLabel, QApplication, QTableWidgetItem, QFileDialog
+from PyQt5.QtCore import Qt, QThread, QPoint, QSize
+from PyQt5.QtGui import QPixmap, QImage, QFont, QIcon, QColor, QPainter, QMovie, qRgb, QScreen, QResizeEvent
+from PyQt5.QtWidgets import QMainWindow, QMessageBox, QLabel, QApplication, QTableWidgetItem, QFileDialog, QDesktopWidget
 from playsound import playsound
 from func_timeout import func_timeout, FunctionTimedOut
 from Designs import design_1
@@ -26,11 +29,14 @@ from Designs import design_3
 from Designs import design_5
 from Designs import design_6
 from Designs import design_7
+from Designs import  loading
+from telebot import TeleBot
 
+# bot details
 token = "1694103677:AAGuFWePbKghZGsu3_wJkQJeAUSFQb-TAxI"
-url = f"https://api.telegram.org/bot{token}/sendMessage"
+url = f"http://api.telegram.org/bot{token}/sendMessage"
 encoder_characters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
-
+bot = TeleBot(token)
 
 def encoder(n):
     s = ""
@@ -78,11 +84,49 @@ def removeColumns(db_cur, t, columns_to_junk):
     sql = "DROP TABLE xfer"
     db_cur.execute(sql)
 
+class Show_time(QThread):
+    def run(self):
+        months = [" ", 'Yanvar', 'Fevral', 'Mart', 'Aprel', 'May', 'Iyun', 'Iyul', 'Avgust', 'Sentyabr', 'Oktyabr', 'Noyabr', 'Dekabr']
+        while True:
+            current_time = datetime.today()
+            try:
+                w1.label_4.setText(f"{current_time.year}, {current_time.day}-{months[current_time.month]} "+current_time.strftime("%H:%M:%S"))
+            except:
+                pass
+            time.sleep(1)
+
+class Loading_frame(QMainWindow, loading.Ui_MainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)
+        self.setWindowFlags(Qt.FramelessWindowHint)
+        self.setWindowFlag(Qt.WindowStaysOnTopHint)
+        self.setAttribute(Qt.WA_NoSystemBackground, True)
+        self.setAttribute(Qt.WA_TranslucentBackground, True)
+        self.gif = QMovie(":/Icons/Icons/gear.gif")
+        self.label.setMovie(self.gif)
+        self.gif.start()
+
+    def paintEvent(self, event=None):
+        painter = QPainter(self)
+        painter.setOpacity(0.2)
+        painter.setBrush(QColor(qRgb(45, 140, 255)))
+        painter.drawRect(self.rect())
+
+    def Close(self):
+        t1 = Timer(1, self.close)
+        t1.start()
 
 class Main_window(QMainWindow, design_1.Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.setWindowFlags(Qt.CustomizeWindowHint)
+        self.dragPos = QPoint()
+        self.old_geo = QDesktopWidget().availableGeometry()
+        self.maximized = True
+        self.frame_2.mouseMoveEvent = self.mouseMoveEventf
+        self.frame_2.mouseReleaseEvent = self.mouseReleaseEventf
         self.conn = sqlite3.connect(database, check_same_thread=False)
         self.cur = self.conn.cursor()
         self.check_database()
@@ -102,6 +146,9 @@ class Main_window(QMainWindow, design_1.Ui_MainWindow):
         )
         self.pushButton_2.clicked.connect(lambda x: self.open_window_2(0))
         self.pushButton_3.clicked.connect(lambda x: self.open_window_3(0))
+        self.pushButton_4.clicked.connect(self.close)
+        self.pushButton_13.clicked.connect(self.setSize)
+        self.pushButton_12.clicked.connect(self.showMinimized)
         self.pushButton_5.clicked.connect(self.export_cart)
         self.pushButton_6.clicked.connect(self.del_with_button)
         self.pushButton_7.clicked.connect(self.edit_using_button)
@@ -109,14 +156,14 @@ class Main_window(QMainWindow, design_1.Ui_MainWindow):
         self.pushButton_9.clicked.connect(self.delete_date)
         self.pushButton_10.clicked.connect(self.open_window_6)
         self.checkBox.clicked.connect(self.hide_img_row)
-
         self.lineEdit_5.textChanged.connect(self.about_data_changed)
         self.lineEdit_6.textChanged.connect(self.about_data_changed)
         self.lineEdit_8.textChanged.connect(self.about_data_changed)
         self.format_tables()
         self.check_today()
         self.update_window()
-
+        self.time_class = Show_time()
+        self.time_class.start()
         self.tableWidget.clicked.connect(
             lambda: self.tableWidget_2.clearSelection())
         self.tableWidget_2.clicked.connect(
@@ -129,6 +176,36 @@ class Main_window(QMainWindow, design_1.Ui_MainWindow):
             [self.tableWidget_4, self.tableWidget_3]))
         self.tableWidget_3.itemSelectionChanged.connect(lambda: self.write_attendance(
             self.tableWidget_3.item(self.tableWidget_3.currentRow(), 0)))
+
+    def setSize(self):
+        if self.maximized:
+            self.restore()
+        else:
+            self.maximize()
+
+    def maximize(self):
+        self.maximized = True
+        self.setGeometry(self.old_geo)
+        self.pushButton_13.setText("2")
+
+    def restore(self):
+        self.resize(0, 0)
+        self.move(100, 100)
+        self.maximized = False
+        self.pushButton_13.setText("1")
+
+    def mousePressEvent(self, event):
+        self.dragPos = event.globalPos()
+
+    def mouseMoveEventf(self, event):
+        if event.buttons() == Qt.LeftButton:
+            self.move(self.pos() + event.globalPos() - self.dragPos)
+            self.dragPos = event.globalPos()
+            event.accept()
+
+    def mouseReleaseEventf(self, event):
+        if self.pos().y() <= -7:
+            self.maximize()
 
     def check_database(self):
         self.cur.execute(
@@ -164,12 +241,11 @@ class Main_window(QMainWindow, design_1.Ui_MainWindow):
         try:
             if len(self.tableWidget.selectedItems()) != 0:
                 id = self.tableWidget.item(self.tableWidget.currentRow(), 0).text()
-
+                self.cur.execute("select * from pupils where id=?", [id])
+                data = self.cur.fetchone()
                 filename = QFileDialog.getSaveFileName(
-                    self, 'Qr kartani saqlash', '', "JPG (*.jpg)")[0]
+                    self, 'Qr kartani saqlash', f'{data[2]}_{data[6]}_{data[5]}', "JPG (*.jpg)")[0]
                 if filename != "":
-                    self.cur.execute("select * from pupils where id=?", [id])
-                    data = self.cur.fetchone()
                     img = ImageQt.fromqpixmap(QPixmap(":/Icons/Icons/cart.jpg"))
                     # user photo
                     if data[1] != "":
@@ -182,14 +258,14 @@ class Main_window(QMainWindow, design_1.Ui_MainWindow):
                     img.paste(qr_img, (160, 280))
                     # strings
                     draw = ImageDraw.Draw(img)
-                    font = ImageFont.truetype(resource_path("./font.ttf"), 44)
+                    font = ImageFont.truetype(resource_path("./timesbd.ttf"), 44)
                     # surname
                     w, h = draw.textsize(data[6], font)
                     draw.text(((560 - w) / 2, (648 - h)), data[6], font=font)
                     # name
                     w, h = draw.textsize(data[5], font)
                     draw.text(((560 - w) / 2, 678), data[5], font=font)
-                    font = ImageFont.truetype(resource_path("./font.ttf"), 40)
+                    font = ImageFont.truetype(resource_path("./timesbd.ttf"), 40)
                     # region
                     w, h = draw.textsize(self.lineEdit_5.text(), font)
                     draw.text(((380 - w) / 2 + 180, 25),
@@ -351,12 +427,12 @@ class Main_window(QMainWindow, design_1.Ui_MainWindow):
 
     def class_changed(self, name):
         if name == "Hammasi":
-            self.cur.execute("select * from pupils order by name")
+            self.cur.execute("select * from pupils order by surname")
             a = self.cur.fetchall()
             self.write_pupils(a)
         else:
             self.cur.execute(
-                "select * from pupils where class=? order by name", [name])
+                "select * from pupils where class=? order by surname", [name])
             a = self.cur.fetchall()
             self.write_pupils(a)
 
@@ -507,6 +583,7 @@ class Main_window(QMainWindow, design_1.Ui_MainWindow):
         self.tableWidget_4.item(len(names)-1,0).setForeground(QColor(0, 139, 242))
 
     def update_window(self):
+        loading_window.showMaximized()
         # total pupils groupbox
         self.cur.execute("""select * from pupils where gender="O'g'il" """)
         self.lineEdit_3.setText(str(len(self.cur.fetchall())))
@@ -564,6 +641,7 @@ class Main_window(QMainWindow, design_1.Ui_MainWindow):
         self.tableWidget_3.insertRow(len(a))
         self.tableWidget_3.setItem(len(a), 0, QTableWidgetItem("Hammasi"))
         self.write_attendance("Hammasi")
+        loading_window.Close()
 
     def get_image(self, image):
         imageLabel = QLabel()
@@ -578,8 +656,9 @@ class Main_window(QMainWindow, design_1.Ui_MainWindow):
 # add pupil
 class Window_2(QMainWindow, design_2.Ui_MainWindow):
     def __init__(self, id):
-        super().__init__()
+        super().__init__(parent=w1)
         self.setupUi(self)
+        self.setWindowFlag(Qt.WindowCloseButtonHint, False)
         self.setWindowFlag(Qt.WindowStaysOnTopHint)
         self.setWindowFlag(Qt.WindowMinMaxButtonsHint, False)
         self.id = id
@@ -712,6 +791,8 @@ class Window_2(QMainWindow, design_2.Ui_MainWindow):
         self.photo = QFileDialog.getOpenFileName(
             self, 'Rasmni yuklash', '', "Image (*.jpg)")[0]
         if self.photo != "":
+            img_correct = cv2.imread(self.photo)
+            cv2.imwrite(self.photo, img_correct)
             pic = QPixmap(self.photo)
             self.label_9.setPixmap(pic)
 
@@ -719,9 +800,6 @@ class Window_2(QMainWindow, design_2.Ui_MainWindow):
         key = e.key()
         if key == Qt.Key_Escape:
             self.Close()
-
-    def closeEvent(self, e):
-        self.Close()
 
     def Close(self):
         self.lineEdit.clear()
@@ -738,7 +816,7 @@ class Window_2(QMainWindow, design_2.Ui_MainWindow):
 # add class
 class Window_3(QMainWindow, design_3.Ui_MainWindow):
     def __init__(self, id):
-        super().__init__()
+        super().__init__(parent=w1)
         self.setupUi(self)
         self.setWindowFlag(Qt.WindowStaysOnTopHint)
         self.setWindowFlag(Qt.WindowMinMaxButtonsHint, False)
@@ -807,9 +885,9 @@ class Window_3(QMainWindow, design_3.Ui_MainWindow):
 # change time
 class Window_5(QMainWindow, design_5.Ui_MainWindow):
     def __init__(self, id, date):
-        super().__init__()
+        super().__init__(parent=w1)
         self.setupUi(self)
-        self.setWindowFlag(Qt.WindowStaysOnTopHint)
+        self.setWindowFlag(Qt.WindowCloseButtonHint, False)
         self.setWindowFlag(Qt.WindowMinMaxButtonsHint, False)
         self.id = id
         date = date.split(", ")[1].split("/")
@@ -826,7 +904,7 @@ class Window_5(QMainWindow, design_5.Ui_MainWindow):
             lambda x: self.timeEdit.setDateTime(datetime.strptime("0:00", "%H:%M")))
         self.pushButton_6.clicked.connect(
             lambda x: self.timeEdit_2.setDateTime(datetime.strptime("0:00", "%H:%M")))
-        self.pushButton_5.clicked.connect(self.Close)
+        self.pushButton_5.clicked.connect(lambda x: self.Close(0))
         self.pushButton_8.clicked.connect(self.Finish)
 
     def Finish(self):
@@ -844,22 +922,20 @@ class Window_5(QMainWindow, design_5.Ui_MainWindow):
             res_date, self.id])
         self.conn.commit()
         self.conn.close()
-        self.Close()
+        self.Close(1)
 
     def keyPressEvent(self, e):
         key = e.key()
         if key == Qt.Key_Escape:
-            self.Close()
+            self.close()
         elif key in [Qt.Key_Return, Qt.Key_Enter]:
             self.Finish()
 
-    def closeEvent(self, e):
-        self.Close()
-
-    def Close(self):
-        self.close()
+    def Close(self, k):
         w1.setDisabled(False)
-        w1.update_window()
+        if k==1:
+            w1.update_window()
+        self.close()
 
     def write_data(self):
         self.cur.execute(
@@ -879,7 +955,7 @@ class Window_5(QMainWindow, design_5.Ui_MainWindow):
 # Camera
 class Window_6(QMainWindow, design_6.Ui_MainWindow):
     def __init__(self):
-        super().__init__()
+        super().__init__(parent=w1)
         self.setupUi(self)
         self.volume = True
         self.setWindowFlag(Qt.WindowStaysOnTopHint)
@@ -887,11 +963,16 @@ class Window_6(QMainWindow, design_6.Ui_MainWindow):
         self.con = sqlite3.connect(database)
         self.cur = self.con.cursor()
         self.pushButton.clicked.connect(self.run_camera)
+        self.pushButton_7.clicked.connect(self.clear_image_field)
         self.ip_cam_visible()
         self.comboBox.currentIndexChanged.connect(self.ip_cam_visible)
         self.write_dates()
+        self.pushButton.clicked.connect(lambda x: self.label_6.clear())
         self.pushButton_2.clicked.connect(self.stop_cam)
         self.pushButton_3.clicked.connect(self.change_volume)
+
+    def clear_image_field(self):
+        self.label_6.setPixmap(QPixmap(":/Icons/Icons/transparent.png"))
 
     def Close(self):
         w1.setDisabled(False)
@@ -951,7 +1032,8 @@ class Window_6(QMainWindow, design_6.Ui_MainWindow):
         self.comboBox.setDisabled(True)
         self.lineEdit.setDisabled(True)
         self.lineEdit_2.setDisabled(True)
-        self.comboBox_2.setDisabled(True)
+        self.radioButton.setDisabled(True)
+        self.radioButton_2.setDisabled(True)
         self.pushButton.setDisabled(True)
 
     def stop_cam(self):
@@ -959,7 +1041,8 @@ class Window_6(QMainWindow, design_6.Ui_MainWindow):
             self.comboBox.setDisabled(False)
             self.lineEdit.setDisabled(False)
             self.lineEdit_2.setDisabled(False)
-            self.comboBox_2.setDisabled(False)
+            self.radioButton.setDisabled(False)
+            self.radioButton_2.setDisabled(False)
             self.pushButton.setDisabled(False)
             try:
                 if self.th1.cap.isOpened():
@@ -978,6 +1061,7 @@ class Window_6(QMainWindow, design_6.Ui_MainWindow):
             self.cam = cam
             self.con = sqlite3.connect(database, check_same_thread=False)
             self.cur = self.con.cursor()
+            self.notifications = []
 
         def check_qrcode(self, qrcode):
             check = self.cur.execute(
@@ -988,17 +1072,18 @@ class Window_6(QMainWindow, design_6.Ui_MainWindow):
                 return check[0]
 
         def notify(self, code):
-            if time.perf_counter() - self.last_time > 1:
+            if time.perf_counter() - self.last_time > 2:
                 if code == 1:
                     if w1.w6.checkBox.isChecked():
-                        my_th = send_to_parents(self.id)
-                        my_th.start()
+                        self.notifications.append(send_to_parents(self.id))
+                        self.notifications[-1].start()
                     if w1.w6.volume:
                         try:
                             playsound("./correct.wav")
                         except:
                             pass
                 self.last_time = time.perf_counter()
+                time.sleep(1)
 
         def write_time(self, date, action, id):
             self.cur.execute(f"select {date} from pupils where id={id}")
@@ -1011,12 +1096,12 @@ class Window_6(QMainWindow, design_6.Ui_MainWindow):
             if len(times) == 2:
                 return 0
             elif len(times) == 1:
-                if action == "Keldi":
+                if action:
                     return 0
                 else:
                     times.append(cur_time)
             elif len(times) == 0:
-                if action == "Keldi":
+                if action:
                     times.append(cur_time)
                 else:
                     return 0
@@ -1058,7 +1143,7 @@ class Window_6(QMainWindow, design_6.Ui_MainWindow):
                                 color = (0, 255, 65)
                                 color_text = (0, 0, 255)
                                 self.infor = self.write_time(
-                                    encoder(datetime.today().toordinal()), w1.w6.comboBox_2.currentText(), self.id)
+                                    encoder(datetime.today().toordinal()), w1.w6.radioButton.isChecked(), self.id)
                                 if self.infor == 0:
                                     color_text = (255, 0, 0)
                                     text = "Xatolik"
@@ -1096,33 +1181,37 @@ class send_to_parents(QThread):
         self.id = id
 
     def run(self):
-        c = True
+        print("ok")
         cur.execute(f"select * from pupils where id={self.id}")
         data = cur.fetchone()
         cur.execute("select * from school")
         school = cur.fetchone()
-        if w1.w6.comboBox_2.currentText() == "Keldi":
-            action = "↙️Keldi"
+        if w1.w6.radioButton.isChecked():
+            action = f"Farzandingiz <b>{data[5]} {data[6]}\n 🏫 {school[2]}</b> ga kirib keldi ↙️"
         else:
-            action = "↗️Ketdi"
+            action = f"Farzandingiz <b>{data[5]} {data[6]}\n 🏫 {school[2]}</b> ni tark etdi ↗️"
         date = f"🕔 Vaqt:  <code>{w1.w6.lineEdit_2.text()} " + datetime.now().strftime("%H:%M") + \
                "</code>"
-        text = date + "\n------------------------------------------------------\n"
-        text += f"<b>🔔 Xarakat</b>:  <cod e>{action}</code>\n  <b>🏫 Maktab:</b>  {school[2]}\n<b>  Ism:</b>  {data[5]}\n<b>  Familiya:</b>  {data[6]}\n<b>  Sinf:</b>  {data[2]}"
-        while c:
+        text = (date + "\n----------------------------------------------\n")
+        text += action
+        chat_id = int(data[13])
+        self.first_req = time.perf_counter()
+        while True:
             try:
-                data_ = {"chat_id": data[13],
-                         "text": text,
-                         "parse_mode": "HTML"}
-                post(url, data=data_)
-                c = False
+                res = bot.send_message(chat_id, text, parse_mode='HTML')
+                break
             except Exception as er:
-                with open("logs.txt", "w+") as f:
-                    f.write(str(er))
+                pass
+            if time.perf_counter() - self.first_req >= 20:
+                break
+
 
 
 def get_mac():
-    return socket.gethostname()
+    c = wmi.WMI()
+    ms = c.Win32_ComputerSystem()[0]
+    return ms.Manufacturer + ms.Model + ms.Name + ms.SystemType + ms.SystemFamily
+
 
 
 def on_to_2(num, n):
@@ -1205,10 +1294,14 @@ class Window_7(QMainWindow, design_7.Ui_MainWindow):
         self.setupUi(self)
         self.setWindowFlag(Qt.WindowStaysOnTopHint)
         self.setWindowFlag(Qt.WindowMinMaxButtonsHint, False)
-        self.lineEdit.setText(encode_password(get_mac()).upper())
+        self.lineEdit.setText(self.get_random_string())
         self.pushButton_2.clicked.connect(lambda x: self.close())
         self.pushButton.clicked.connect(self.check_password)
         self.pushButton_4.clicked.connect(lambda x: QApplication.clipboard().setText(self.lineEdit.text()))
+
+    def get_random_string(self):
+        let = string.ascii_uppercase
+        return ''.join(random.choice(let) for i in range(24))
 
     def check_password(self):
         if self.lineEdit_2.text() == encode_password(self.lineEdit.text()):
@@ -1239,6 +1332,7 @@ if __name__ == '__main__':
             os.mkdir(os.getenv("APPDATA") + "\SControl")
         database = os.getenv("APPDATA") + "\SControl\data.db"
         app = QApplication(sys.argv)
+        loading_window = Loading_frame()
         con = sqlite3.connect(database, check_same_thread=False)
         cur = con.cursor()
         if os.path.exists("license.bin"):

@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1204, 685)
+        MainWindow.resize(1039, 622)
         MainWindow.setMinimumSize(QtCore.QSize(0, 0))
         MainWindow.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         icon = QtGui.QIcon()
@@ -30,12 +30,15 @@ class Ui_MainWindow(object):
 "}")
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.centralwidget)
-        self.gridLayout_2.setContentsMargins(5, 8, 8, 5)
+        self.gridLayout_2.setContentsMargins(0, 0, 0, 5)
         self.gridLayout_2.setVerticalSpacing(0)
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.verticalLayout_6 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_6.setContentsMargins(6, -1, 6, -1)
         self.verticalLayout_6.setSpacing(0)
         self.verticalLayout_6.setObjectName("verticalLayout_6")
+        spacerItem = QtWidgets.QSpacerItem(20, 5, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.verticalLayout_6.addItem(spacerItem)
         self.tabWidget = QtWidgets.QTabWidget(self.centralwidget)
         font = QtGui.QFont()
         font.setFamily("Sylfaen")
@@ -606,14 +609,26 @@ class Ui_MainWindow(object):
 "}")
         self.comboBox.setObjectName("comboBox")
         self.horizontalLayout_2.addWidget(self.comboBox)
-        spacerItem = QtWidgets.QSpacerItem(18, 31, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_2.addItem(spacerItem)
+        spacerItem1 = QtWidgets.QSpacerItem(18, 31, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_2.addItem(spacerItem1)
         self.checkBox = QtWidgets.QCheckBox(self.groupBox)
         self.checkBox.setMaximumSize(QtCore.QSize(16777215, 16777215))
         font = QtGui.QFont()
         font.setFamily("Georgia")
         font.setPointSize(11)
         self.checkBox.setFont(font)
+        self.checkBox.setStyleSheet("QCheckBox::indicator:unchecked{\n"
+"     image: url(:/Icons/Icons/unchecked.png);\n"
+" }\n"
+"QCheckBox::indicator:unchecked:hover{\n"
+"     image: url(:/Icons/Icons/unchecked_hover.png);\n"
+" }\n"
+"QCheckBox::indicator:checked{\n"
+"     image: url(:/Icons/Icons/checked.png);\n"
+" }\n"
+"QCheckBox::indicator:checked:hover{\n"
+"     image: url(:/Icons/Icons/checked_hover.png);\n"
+" }")
         self.checkBox.setCheckable(True)
         self.checkBox.setChecked(True)
         self.checkBox.setObjectName("checkBox")
@@ -644,7 +659,7 @@ class Ui_MainWindow(object):
         icon4 = QtGui.QIcon()
         icon4.addPixmap(QtGui.QPixmap(":/Icons/Icons/edit.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.pushButton_7.setIcon(icon4)
-        self.pushButton_7.setIconSize(QtCore.QSize(20, 20))
+        self.pushButton_7.setIconSize(QtCore.QSize(28, 28))
         self.pushButton_7.setObjectName("pushButton_7")
         self.horizontalLayout_2.addWidget(self.pushButton_7)
         self.pushButton_6 = QtWidgets.QPushButton(self.groupBox)
@@ -673,7 +688,7 @@ class Ui_MainWindow(object):
         icon5 = QtGui.QIcon()
         icon5.addPixmap(QtGui.QPixmap(":/Icons/Icons/delete_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.pushButton_6.setIcon(icon5)
-        self.pushButton_6.setIconSize(QtCore.QSize(28, 28))
+        self.pushButton_6.setIconSize(QtCore.QSize(24, 24))
         self.pushButton_6.setObjectName("pushButton_6")
         self.horizontalLayout_2.addWidget(self.pushButton_6)
         self.pushButton_5 = QtWidgets.QPushButton(self.groupBox)
@@ -704,7 +719,7 @@ class Ui_MainWindow(object):
         icon6 = QtGui.QIcon()
         icon6.addPixmap(QtGui.QPixmap(":/Icons/Icons/qr.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.pushButton_5.setIcon(icon6)
-        self.pushButton_5.setIconSize(QtCore.QSize(28, 28))
+        self.pushButton_5.setIconSize(QtCore.QSize(30, 30))
         self.pushButton_5.setObjectName("pushButton_5")
         self.horizontalLayout_2.addWidget(self.pushButton_5)
         self.pushButton_3 = QtWidgets.QPushButton(self.groupBox)
@@ -733,7 +748,7 @@ class Ui_MainWindow(object):
         icon7 = QtGui.QIcon()
         icon7.addPixmap(QtGui.QPixmap(":/Icons/Icons/add_class.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.pushButton_3.setIcon(icon7)
-        self.pushButton_3.setIconSize(QtCore.QSize(25, 25))
+        self.pushButton_3.setIconSize(QtCore.QSize(28, 28))
         self.pushButton_3.setObjectName("pushButton_3")
         self.horizontalLayout_2.addWidget(self.pushButton_3)
         self.pushButton_2 = QtWidgets.QPushButton(self.groupBox)
@@ -763,7 +778,7 @@ class Ui_MainWindow(object):
         icon8 = QtGui.QIcon()
         icon8.addPixmap(QtGui.QPixmap(":/Icons/Icons/add_pupil.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.pushButton_2.setIcon(icon8)
-        self.pushButton_2.setIconSize(QtCore.QSize(25, 25))
+        self.pushButton_2.setIconSize(QtCore.QSize(24, 24))
         self.pushButton_2.setObjectName("pushButton_2")
         self.horizontalLayout_2.addWidget(self.pushButton_2)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
@@ -1138,11 +1153,11 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.pushButton_9.setIcon(icon5)
-        self.pushButton_9.setIconSize(QtCore.QSize(28, 28))
+        self.pushButton_9.setIconSize(QtCore.QSize(22, 22))
         self.pushButton_9.setObjectName("pushButton_9")
         self.horizontalLayout_12.addWidget(self.pushButton_9)
-        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_12.addItem(spacerItem1)
+        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_12.addItem(spacerItem2)
         self.pushButton_8 = QtWidgets.QPushButton(self.layoutWidget1)
         self.pushButton_8.setMinimumSize(QtCore.QSize(250, 30))
         self.pushButton_8.setMaximumSize(QtCore.QSize(250, 30))
@@ -1166,12 +1181,14 @@ class Ui_MainWindow(object):
 "border: 1px solid #50A5FF;\n"
 "}\n"
 "")
-        self.pushButton_8.setIcon(icon4)
-        self.pushButton_8.setIconSize(QtCore.QSize(24, 24))
+        icon13 = QtGui.QIcon()
+        icon13.addPixmap(QtGui.QPixmap(":/Icons/Icons/edit_time.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        self.pushButton_8.setIcon(icon13)
+        self.pushButton_8.setIconSize(QtCore.QSize(28, 28))
         self.pushButton_8.setObjectName("pushButton_8")
         self.horizontalLayout_12.addWidget(self.pushButton_8)
-        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_12.addItem(spacerItem2)
+        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_12.addItem(spacerItem3)
         self.pushButton_10 = QtWidgets.QPushButton(self.layoutWidget1)
         self.pushButton_10.setMinimumSize(QtCore.QSize(250, 30))
         self.pushButton_10.setMaximumSize(QtCore.QSize(250, 30))
@@ -1195,17 +1212,17 @@ class Ui_MainWindow(object):
 "border: 1px solid #50A5FF;\n"
 "}\n"
 "")
-        icon13 = QtGui.QIcon()
-        icon13.addPixmap(QtGui.QPixmap(":/Icons/Icons/camera.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
-        self.pushButton_10.setIcon(icon13)
-        self.pushButton_10.setIconSize(QtCore.QSize(24, 24))
+        icon14 = QtGui.QIcon()
+        icon14.addPixmap(QtGui.QPixmap(":/Icons/Icons/camera.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        self.pushButton_10.setIcon(icon14)
+        self.pushButton_10.setIconSize(QtCore.QSize(28, 28))
         self.pushButton_10.setObjectName("pushButton_10")
         self.horizontalLayout_12.addWidget(self.pushButton_10)
         self.verticalLayout_3.addLayout(self.horizontalLayout_12)
         self.verticalLayout_5.addWidget(self.splitter_3)
-        icon14 = QtGui.QIcon()
-        icon14.addPixmap(QtGui.QPixmap(":/Icons/Icons/calendar2.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
-        self.tabWidget.addTab(self.tab_2, icon14, "")
+        icon15 = QtGui.QIcon()
+        icon15.addPixmap(QtGui.QPixmap(":/Icons/Icons/calendar2.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        self.tabWidget.addTab(self.tab_2, icon15, "")
         self.verticalLayout_6.addWidget(self.tabWidget)
         self.frame = QtWidgets.QFrame(self.centralwidget)
         self.frame.setMaximumSize(QtCore.QSize(16777215, 16))
@@ -1217,8 +1234,8 @@ class Ui_MainWindow(object):
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.frame)
         self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
-        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_3.addItem(spacerItem3)
+        spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_3.addItem(spacerItem4)
         self.label_4 = QtWidgets.QLabel(self.frame)
         font = QtGui.QFont()
         font.setFamily("Arial Rounded MT Bold")
@@ -1227,13 +1244,107 @@ class Ui_MainWindow(object):
         self.label_4.setStyleSheet("border: none;")
         self.label_4.setObjectName("label_4")
         self.horizontalLayout_3.addWidget(self.label_4)
-        spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_3.addItem(spacerItem4)
+        spacerItem5 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_3.addItem(spacerItem5)
         self.horizontalLayout_3.setStretch(0, 80)
         self.horizontalLayout_3.setStretch(1, 1)
         self.horizontalLayout_3.setStretch(2, 1)
         self.verticalLayout_6.addWidget(self.frame)
-        self.gridLayout_2.addLayout(self.verticalLayout_6, 0, 0, 1, 1)
+        self.gridLayout_2.addLayout(self.verticalLayout_6, 1, 0, 1, 1)
+        self.frame_2 = QtWidgets.QFrame(self.centralwidget)
+        self.frame_2.setMinimumSize(QtCore.QSize(0, 23))
+        self.frame_2.setMaximumSize(QtCore.QSize(16777215, 23))
+        self.frame_2.setStyleSheet("QFrame#frame_2{\n"
+"background-color: #9ED6EC;\n"
+"}")
+        self.frame_2.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_2.setObjectName("frame_2")
+        self.horizontalLayout_14 = QtWidgets.QHBoxLayout(self.frame_2)
+        self.horizontalLayout_14.setContentsMargins(-1, 0, 0, 0)
+        self.horizontalLayout_14.setSpacing(0)
+        self.horizontalLayout_14.setObjectName("horizontalLayout_14")
+        spacerItem6 = QtWidgets.QSpacerItem(543, 18, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_14.addItem(spacerItem6)
+        self.label_9 = QtWidgets.QLabel(self.frame_2)
+        font = QtGui.QFont()
+        font.setFamily("Bahnschrift SemiBold")
+        font.setPointSize(12)
+        self.label_9.setFont(font)
+        self.label_9.setStyleSheet("color: rgb(0, 79, 116);")
+        self.label_9.setObjectName("label_9")
+        self.horizontalLayout_14.addWidget(self.label_9)
+        spacerItem7 = QtWidgets.QSpacerItem(1111, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_14.addItem(spacerItem7)
+        self.horizontalLayout_13 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_13.setSpacing(0)
+        self.horizontalLayout_13.setObjectName("horizontalLayout_13")
+        self.pushButton_12 = QtWidgets.QPushButton(self.frame_2)
+        self.pushButton_12.setMinimumSize(QtCore.QSize(24, 24))
+        self.pushButton_12.setMaximumSize(QtCore.QSize(24, 24))
+        self.pushButton_12.setStyleSheet("QPushButton\n"
+"                   {\n"
+"                   font-family:\"Webdings\";\n"
+"                   text-align:top;\n"
+"                   background:#9ED6EC;\n"
+"                   border:none;\n"
+"                   font-size:16px;\n"
+"                    color: white;\n"
+"                   }\n"
+"QPushButton:hover\n"
+"{\n"
+"background: #6db2cd;\n"
+"}")
+        self.pushButton_12.setIconSize(QtCore.QSize(22, 22))
+        self.pushButton_12.setObjectName("pushButton_12")
+        self.horizontalLayout_13.addWidget(self.pushButton_12)
+        self.pushButton_13 = QtWidgets.QPushButton(self.frame_2)
+        self.pushButton_13.setMinimumSize(QtCore.QSize(24, 24))
+        self.pushButton_13.setMaximumSize(QtCore.QSize(24, 24))
+        self.pushButton_13.setStyleSheet("QPushButton\n"
+"                   {\n"
+"                   font-family:\"Webdings\";\n"
+"                   text-align:top;\n"
+"                   background:#9ED6EC;\n"
+"                   border:none;\n"
+"                   font-size:18px;\n"
+"                    color: white;\n"
+"                   }\n"
+"QPushButton:hover\n"
+"{\n"
+"background: #6db2cd;\n"
+"}")
+        self.pushButton_13.setIconSize(QtCore.QSize(22, 22))
+        self.pushButton_13.setObjectName("pushButton_13")
+        self.horizontalLayout_13.addWidget(self.pushButton_13)
+        self.pushButton_4 = QtWidgets.QPushButton(self.frame_2)
+        self.pushButton_4.setMinimumSize(QtCore.QSize(24, 24))
+        self.pushButton_4.setMaximumSize(QtCore.QSize(24, 23))
+        font = QtGui.QFont()
+        font.setFamily("Webdings")
+        font.setPointSize(-1)
+        self.pushButton_4.setFont(font)
+        self.pushButton_4.setStyleSheet("QPushButton\n"
+"                   {\n"
+"                   font-family:\"Webdings\";\n"
+"                   text-align:top;\n"
+"                   background:#9ED6EC;\n"
+"                   border:none;\n"
+"                   font-size:15px;\n"
+"                    color: white;\n"
+"                   }\n"
+"QPushButton:hover{\n"
+"background: #ec1c24;\n"
+"}")
+        self.pushButton_4.setIconSize(QtCore.QSize(22, 22))
+        self.pushButton_4.setObjectName("pushButton_4")
+        self.horizontalLayout_13.addWidget(self.pushButton_4)
+        self.horizontalLayout_14.addLayout(self.horizontalLayout_13)
+        self.horizontalLayout_14.setStretch(0, 11)
+        self.horizontalLayout_14.setStretch(1, 1)
+        self.horizontalLayout_14.setStretch(2, 10)
+        self.horizontalLayout_14.setStretch(3, 1)
+        self.gridLayout_2.addWidget(self.frame_2, 0, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -1323,7 +1434,11 @@ class Ui_MainWindow(object):
         self.pushButton_8.setText(_translate("MainWindow", "Tahrirlash"))
         self.pushButton_10.setText(_translate("MainWindow", "Kamera"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Davomat"))
-        self.label_4.setText(_translate("MainWindow", "18:56"))
+        self.label_4.setText(_translate("MainWindow", "Time"))
+        self.label_9.setText(_translate("MainWindow", " SControl"))
+        self.pushButton_12.setText(_translate("MainWindow", "0"))
+        self.pushButton_13.setText(_translate("MainWindow", "2"))
+        self.pushButton_4.setText(_translate("MainWindow", "r"))
 import Res_rc
 
 

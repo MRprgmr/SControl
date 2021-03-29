@@ -24,7 +24,7 @@ class Ui_MainWindow(object):
         icon.addPixmap(QtGui.QPixmap(":/Icons/Icons/camera.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
         MainWindow.setWindowIcon(icon)
         MainWindow.setStyleSheet("")
-        MainWindow.setIconSize(QtCore.QSize(32, 20))
+        MainWindow.setIconSize(QtCore.QSize(32, 32))
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setStyleSheet("#centralwidget {\n"
 "    background-color: rgb(246, 246, 246);\n"
@@ -65,7 +65,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_2 = QtWidgets.QVBoxLayout()
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.verticalLayout = QtWidgets.QVBoxLayout()
-        self.verticalLayout.setSpacing(18)
+        self.verticalLayout.setSpacing(20)
         self.verticalLayout.setObjectName("verticalLayout")
         spacerItem = QtWidgets.QSpacerItem(20, 15, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         self.verticalLayout.addItem(spacerItem)
@@ -269,10 +269,22 @@ class Ui_MainWindow(object):
         font.setPointSize(12)
         self.checkBox.setFont(font)
         self.checkBox.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
+        self.checkBox.setStyleSheet("QCheckBox::indicator:unchecked{\n"
+"     image: url(:/Icons/Icons/unchecked.png);\n"
+" }\n"
+"QCheckBox::indicator:unchecked:hover{\n"
+"     image: url(:/Icons/Icons/unchecked_hover.png);\n"
+" }\n"
+"QCheckBox::indicator:checked{\n"
+"     image: url(:/Icons/Icons/checked.png);\n"
+" }\n"
+"QCheckBox::indicator:checked:hover{\n"
+"     image: url(:/Icons/Icons/checked_hover.png);\n"
+" }")
         icon5 = QtGui.QIcon()
-        icon5.addPixmap(QtGui.QPixmap(":/Icons/Icons/telegram.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        icon5.addPixmap(QtGui.QPixmap(":/Icons/Icons/send_message.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.checkBox.setIcon(icon5)
-        self.checkBox.setIconSize(QtCore.QSize(24, 24))
+        self.checkBox.setIconSize(QtCore.QSize(28, 28))
         self.checkBox.setChecked(True)
         self.checkBox.setObjectName("checkBox")
         self.horizontalLayout_6.addWidget(self.checkBox)

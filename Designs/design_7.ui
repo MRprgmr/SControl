@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>615</width>
+    <width>620</width>
     <height>200</height>
    </rect>
   </property>
@@ -18,13 +18,13 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>615</width>
+    <width>620</width>
     <height>200</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>615</width>
+    <width>620</width>
     <height>200</height>
    </size>
   </property>
@@ -38,7 +38,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normalon>:/Icons/Icons/icon.png</normalon>
+    <normalon>:/Icons/Icons/activate_key.png</normalon>
    </iconset>
   </property>
   <property name="styleSheet">
@@ -50,7 +50,7 @@
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>10</x>
       <y>20</y>
       <width>131</width>
       <height>131</height>
@@ -68,7 +68,7 @@
      <rect>
       <x>100</x>
       <y>170</y>
-      <width>461</width>
+      <width>471</width>
       <height>27</height>
      </rect>
     </property>
@@ -158,9 +158,9 @@ background: transparent;</string>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>170</x>
+      <x>151</x>
       <y>20</y>
-      <width>392</width>
+      <width>421</width>
       <height>131</height>
      </rect>
     </property>
@@ -187,13 +187,13 @@ background: transparent;</string>
         <widget class="QLineEdit" name="lineEdit">
          <property name="minimumSize">
           <size>
-           <width>290</width>
+           <width>300</width>
            <height>30</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>290</width>
+           <width>300</width>
            <height>30</height>
           </size>
          </property>
@@ -249,13 +249,13 @@ border-color: #5487ee;
         <widget class="QLineEdit" name="lineEdit_2">
          <property name="minimumSize">
           <size>
-           <width>290</width>
+           <width>300</width>
            <height>30</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>290</width>
+           <width>300</width>
            <height>30</height>
           </size>
          </property>
@@ -346,7 +346,7 @@ border: 2px solid #00AAFF;
          </property>
          <property name="icon">
           <iconset>
-           <normalon>:/Icons/Icons/ok.png</normalon>
+           <normalon>:/Icons/Icons/activate_key.png</normalon>
           </iconset>
          </property>
          <property name="iconSize">
@@ -432,7 +432,7 @@ border: 2px solid rgb(47, 231, 247);
    <widget class="QPushButton" name="pushButton_4">
     <property name="geometry">
      <rect>
-      <x>570</x>
+      <x>580</x>
       <y>20</y>
       <width>31</width>
       <height>31</height>

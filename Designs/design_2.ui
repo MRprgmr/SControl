@@ -449,7 +449,7 @@ QDateEdit::drop-down:hover {
               <date>
                <year>1900</year>
                <month>12</month>
-               <day>9</day>
+               <day>8</day>
               </date>
              </property>
              <property name="displayFormat">
@@ -629,13 +629,13 @@ background: transparent;
            </property>
            <property name="icon">
             <iconset>
-             <normalon>:/Icons/Icons/telegram.png</normalon>
+             <normalon>:/Icons/Icons/send_message.png</normalon>
             </iconset>
            </property>
            <property name="iconSize">
             <size>
-             <width>26</width>
-             <height>26</height>
+             <width>28</width>
+             <height>28</height>
             </size>
            </property>
           </widget>

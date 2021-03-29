@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1204</width>
-    <height>685</height>
+    <width>1039</width>
+    <height>622</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -50,13 +50,13 @@
    </property>
    <layout class="QGridLayout" name="gridLayout_2">
     <property name="leftMargin">
-     <number>5</number>
+     <number>0</number>
     </property>
     <property name="topMargin">
-     <number>8</number>
+     <number>0</number>
     </property>
     <property name="rightMargin">
-     <number>8</number>
+     <number>0</number>
     </property>
     <property name="bottomMargin">
      <number>5</number>
@@ -64,11 +64,33 @@
     <property name="verticalSpacing">
      <number>0</number>
     </property>
-    <item row="0" column="0">
+    <item row="1" column="0">
      <layout class="QVBoxLayout" name="verticalLayout_6">
       <property name="spacing">
        <number>0</number>
       </property>
+      <property name="leftMargin">
+       <number>6</number>
+      </property>
+      <property name="rightMargin">
+       <number>6</number>
+      </property>
+      <item>
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>5</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
       <item>
        <widget class="QTabWidget" name="tabWidget">
         <property name="font">
@@ -1154,6 +1176,20 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
                     <pointsize>11</pointsize>
                    </font>
                   </property>
+                  <property name="styleSheet">
+                   <string notr="true">QCheckBox::indicator:unchecked{
+     image: url(:/Icons/Icons/unchecked.png);
+ }
+QCheckBox::indicator:unchecked:hover{
+     image: url(:/Icons/Icons/unchecked_hover.png);
+ }
+QCheckBox::indicator:checked{
+     image: url(:/Icons/Icons/checked.png);
+ }
+QCheckBox::indicator:checked:hover{
+     image: url(:/Icons/Icons/checked_hover.png);
+ }</string>
+                  </property>
                   <property name="text">
                    <string>Rasmi</string>
                   </property>
@@ -1215,8 +1251,8 @@ border: 1px solid #50A5FF;
                   </property>
                   <property name="iconSize">
                    <size>
-                    <width>20</width>
-                    <height>20</height>
+                    <width>28</width>
+                    <height>28</height>
                    </size>
                   </property>
                  </widget>
@@ -1271,8 +1307,8 @@ border: 1px solid #50A5FF;
                   </property>
                   <property name="iconSize">
                    <size>
-                    <width>28</width>
-                    <height>28</height>
+                    <width>24</width>
+                    <height>24</height>
                    </size>
                   </property>
                  </widget>
@@ -1329,8 +1365,8 @@ border: 1px solid #50A5FF;
                   </property>
                   <property name="iconSize">
                    <size>
-                    <width>28</width>
-                    <height>28</height>
+                    <width>30</width>
+                    <height>30</height>
                    </size>
                   </property>
                  </widget>
@@ -1386,8 +1422,8 @@ border: 1px solid #50A5FF;
                   </property>
                   <property name="iconSize">
                    <size>
-                    <width>25</width>
-                    <height>25</height>
+                    <width>28</width>
+                    <height>28</height>
                    </size>
                   </property>
                  </widget>
@@ -1444,8 +1480,8 @@ o'quvchi</string>
                   </property>
                   <property name="iconSize">
                    <size>
-                    <width>25</width>
-                    <height>25</height>
+                    <width>24</width>
+                    <height>24</height>
                    </size>
                   </property>
                  </widget>
@@ -2176,8 +2212,8 @@ border: 1px solid #50A5FF;
                   </property>
                   <property name="iconSize">
                    <size>
-                    <width>28</width>
-                    <height>28</height>
+                    <width>22</width>
+                    <height>22</height>
                    </size>
                   </property>
                  </widget>
@@ -2240,13 +2276,13 @@ border: 1px solid #50A5FF;
                   </property>
                   <property name="icon">
                    <iconset>
-                    <normalon>:/Icons/Icons/edit.png</normalon>
+                    <normalon>:/Icons/Icons/edit_time.png</normalon>
                    </iconset>
                   </property>
                   <property name="iconSize">
                    <size>
-                    <width>24</width>
-                    <height>24</height>
+                    <width>28</width>
+                    <height>28</height>
                    </size>
                   </property>
                  </widget>
@@ -2314,8 +2350,8 @@ border: 1px solid #50A5FF;
                   </property>
                   <property name="iconSize">
                    <size>
-                    <width>24</width>
-                    <height>24</height>
+                    <width>28</width>
+                    <height>28</height>
                    </size>
                   </property>
                  </widget>
@@ -2386,7 +2422,7 @@ border-bottom: 1px solid rgba(124, 208, 239, 0.5);</string>
             <string notr="true">border: none;</string>
            </property>
            <property name="text">
-            <string>18:56</string>
+            <string>Time</string>
            </property>
           </widget>
          </item>
@@ -2407,6 +2443,221 @@ border-bottom: 1px solid rgba(124, 208, 239, 0.5);</string>
        </widget>
       </item>
      </layout>
+    </item>
+    <item row="0" column="0">
+     <widget class="QFrame" name="frame_2">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>23</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>23</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QFrame#frame_2{
+background-color: #9ED6EC;
+}</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_14" stretch="11,1,10,1">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <spacer name="horizontalSpacer_7">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>543</width>
+           <height>18</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_9">
+         <property name="font">
+          <font>
+           <family>Bahnschrift SemiBold</family>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(0, 79, 116);</string>
+         </property>
+         <property name="text">
+          <string> SControl</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_6">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>1111</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_13">
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QPushButton" name="pushButton_12">
+           <property name="minimumSize">
+            <size>
+             <width>24</width>
+             <height>24</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>24</width>
+             <height>24</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton
+                   {
+                   font-family:&quot;Webdings&quot;;
+                   text-align:top;
+                   background:#9ED6EC;
+                   border:none;
+                   font-size:16px;
+					color: white;
+                   }
+QPushButton:hover
+{
+background: #6db2cd;
+}</string>
+           </property>
+           <property name="text">
+            <string>0</string>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>22</width>
+             <height>22</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_13">
+           <property name="minimumSize">
+            <size>
+             <width>24</width>
+             <height>24</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>24</width>
+             <height>24</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton
+                   {
+                   font-family:&quot;Webdings&quot;;
+                   text-align:top;
+                   background:#9ED6EC;
+                   border:none;
+                   font-size:18px;
+					color: white;
+                   }
+QPushButton:hover
+{
+background: #6db2cd;
+}</string>
+           </property>
+           <property name="text">
+            <string>2</string>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>22</width>
+             <height>22</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_4">
+           <property name="minimumSize">
+            <size>
+             <width>24</width>
+             <height>24</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>24</width>
+             <height>23</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Webdings</family>
+             <pointsize>-1</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton
+                   {
+                   font-family:&quot;Webdings&quot;;
+                   text-align:top;
+                   background:#9ED6EC;
+                   border:none;
+                   font-size:15px;
+					color: white;
+                   }
+QPushButton:hover{
+background: #ec1c24;
+}</string>
+           </property>
+           <property name="text">
+            <string>r</string>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>22</width>
+             <height>22</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
     </item>
    </layout>
   </widget>

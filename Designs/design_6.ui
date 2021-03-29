@@ -41,7 +41,7 @@
   <property name="iconSize">
    <size>
     <width>32</width>
-    <height>20</height>
+    <height>32</height>
    </size>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -109,7 +109,7 @@ padding: 0 5px 0 5px;
         <item>
          <layout class="QVBoxLayout" name="verticalLayout">
           <property name="spacing">
-           <number>18</number>
+           <number>20</number>
           </property>
           <item>
            <spacer name="verticalSpacer_5">
@@ -481,18 +481,32 @@ border-radius: 6px;
               <property name="cursor">
                <cursorShape>ArrowCursor</cursorShape>
               </property>
+              <property name="styleSheet">
+               <string notr="true">QCheckBox::indicator:unchecked{
+     image: url(:/Icons/Icons/unchecked.png);
+ }
+QCheckBox::indicator:unchecked:hover{
+     image: url(:/Icons/Icons/unchecked_hover.png);
+ }
+QCheckBox::indicator:checked{
+     image: url(:/Icons/Icons/checked.png);
+ }
+QCheckBox::indicator:checked:hover{
+     image: url(:/Icons/Icons/checked_hover.png);
+ }</string>
+              </property>
               <property name="text">
                <string>Xabar jo'natish</string>
               </property>
               <property name="icon">
                <iconset>
-                <normalon>:/Icons/Icons/telegram.png</normalon>
+                <normalon>:/Icons/Icons/send_message.png</normalon>
                </iconset>
               </property>
               <property name="iconSize">
                <size>
-                <width>24</width>
-                <height>24</height>
+                <width>28</width>
+                <height>28</height>
                </size>
               </property>
               <property name="checked">
