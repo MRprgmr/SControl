@@ -18,9 +18,9 @@ import cv2
 import numpy as np
 import qrcode
 from PIL import Image, ImageDraw, ImageFont, ImageQt
-from PyQt5.QtCore import Qt, QThread, QPoint, QSize
-from PyQt5.QtGui import QPixmap, QImage, QFont, QIcon, QColor, QPainter, QMovie, qRgb, QScreen, QResizeEvent
-from PyQt5.QtWidgets import QMainWindow, QMessageBox, QLabel, QApplication, QTableWidgetItem, QFileDialog, QDesktopWidget
+from PyQt5.QtCore import Qt, QThread, QPoint, QSize, QRectF
+from PyQt5.QtGui import QPixmap, QImage, QFont, QIcon, QColor, QPainter, QMovie, qRgb, QScreen, QResizeEvent, QBrush, QPen
+from PyQt5.QtWidgets import QMainWindow, QMessageBox, QLabel, QApplication, QTableWidgetItem, QFileDialog, QDesktopWidget, QGraphicsView, QGraphicsScene, QGraphicsEllipseItem
 from playsound import playsound
 from func_timeout import func_timeout, FunctionTimedOut
 from Designs import design_1
@@ -641,7 +641,27 @@ class Main_window(QMainWindow, design_1.Ui_MainWindow):
         self.tableWidget_3.insertRow(len(a))
         self.tableWidget_3.setItem(len(a), 0, QTableWidgetItem("Hammasi"))
         self.write_attendance("Hammasi")
+        self.write_graphic()
         loading_window.Close()
+
+    def write_graphic(self):
+        scene = QGraphicsScene()
+        view = QGraphicsView(scene, self.graphicsView)
+        persents = [50, 30, 10, 10]
+        total = sum(persents)
+        set_angle = 0
+        cnt = 0
+        colours = [QColor(255, 0, 0), QColor(0, 255, 0), QColor(0, 0, 255), QColor(255, 255, 0)]
+        for persent in persents:
+            angle = round(float(persent * 5760) / total)
+            persent = QGraphicsEllipseItem(0, 0, 200, 200)
+            persent.setPos(0, 0)
+            persent.setStartAngle(set_angle)
+            persent.setSpanAngle(angle)
+            persent.setBrush(colours[cnt])
+            set_angle += angle
+            cnt += 1
+            scene.addItem(persent)
 
     def get_image(self, image):
         imageLabel = QLabel()

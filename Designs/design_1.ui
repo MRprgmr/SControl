@@ -115,7 +115,7 @@
          <bool>false</bool>
         </property>
         <property name="styleSheet">
-         <string notr="true">QTabWidget::pane {
+         <string notr="true">#tabWidget::pane {
 
    border-top: 3px solid #79c0fa;
 	border-radius: 8px;
@@ -157,6 +157,9 @@ QTabBar::tab:top, QTabBar::tab:bottom {
     min-width: 7ex;
     margin-right: 2px;
     padding: 3px 16px 2px 16px;
+}
+QHeaderView::section{
+height: 22px;
 }
 </string>
         </property>
@@ -1831,7 +1834,7 @@ border-bottom: none;
                    <property name="font">
                     <font>
                      <family>Times New Roman</family>
-                     <pointsize>14</pointsize>
+                     <pointsize>13</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">
@@ -1941,115 +1944,228 @@ border-bottom: none;
                 </property>
                 <layout class="QGridLayout" name="gridLayout_7">
                  <property name="leftMargin">
-                  <number>5</number>
+                  <number>0</number>
                  </property>
                  <property name="topMargin">
-                  <number>10</number>
+                  <number>1</number>
                  </property>
                  <property name="rightMargin">
-                  <number>5</number>
+                  <number>0</number>
                  </property>
                  <property name="bottomMargin">
-                  <number>5</number>
+                  <number>0</number>
                  </property>
                  <item row="0" column="0">
-                  <widget class="QTableWidget" name="tableWidget_4">
+                  <widget class="QTabWidget" name="tabWidget_2">
                    <property name="font">
                     <font>
-                     <family>Times New Roman</family>
-                     <pointsize>14</pointsize>
+                     <family>Georgia</family>
                     </font>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true"/>
+                    <string notr="true">QTabBar::tab {
+ border: 1px solid #79c0fa;
+border-bottom: none;
+border-radius: 0px;
+border-bottom-left-radius: 0px;
+border-bottom-right-radius: 0px;
+
+}
+
+QTabBar::tab:selected {
+    background: #0c8eee;
+    border: 1px solid #0c8eee;	
+    color: white;
+}
+
+QTabBar::tab:!selected {
+     background: #79c0fa;
+}
+
+QTabBar::tab:!selected:hover {
+   background: #63b7fc;
+	border: #63b7fc;
+color: white;
+}
+
+
+
+
+QTabBar::tab:top, QTabBar::tab:bottom {
+    min-width: 7ex;
+    margin-right: 0px;
+    padding: 3px 16px 2px 16px;
+}</string>
                    </property>
-                   <property name="frameShape">
-                    <enum>QFrame::Panel</enum>
+                   <property name="tabShape">
+                    <enum>QTabWidget::Rounded</enum>
                    </property>
-                   <property name="editTriggers">
-                    <set>QAbstractItemView::NoEditTriggers</set>
-                   </property>
-                   <property name="alternatingRowColors">
-                    <bool>false</bool>
-                   </property>
-                   <property name="selectionMode">
-                    <enum>QAbstractItemView::SingleSelection</enum>
-                   </property>
-                   <property name="selectionBehavior">
-                    <enum>QAbstractItemView::SelectRows</enum>
-                   </property>
-                   <property name="verticalScrollMode">
-                    <enum>QAbstractItemView::ScrollPerPixel</enum>
-                   </property>
-                   <property name="horizontalScrollMode">
-                    <enum>QAbstractItemView::ScrollPerPixel</enum>
-                   </property>
-                   <property name="rowCount">
+                   <property name="currentIndex">
                     <number>0</number>
                    </property>
-                   <attribute name="horizontalHeaderHighlightSections">
-                    <bool>false</bool>
-                   </attribute>
-                   <attribute name="horizontalHeaderStretchLastSection">
+                   <property name="iconSize">
+                    <size>
+                     <width>13</width>
+                     <height>13</height>
+                    </size>
+                   </property>
+                   <property name="elideMode">
+                    <enum>Qt::ElideNone</enum>
+                   </property>
+                   <property name="usesScrollButtons">
                     <bool>true</bool>
-                   </attribute>
-                   <column>
-                    <property name="text">
-                     <string>Sanalar</string>
-                    </property>
-                    <property name="font">
-                     <font>
-                      <family>Times New Roman</family>
-                      <pointsize>13</pointsize>
-                     </font>
-                    </property>
-                   </column>
-                   <column>
-                    <property name="text">
-                     <string>Keldi</string>
-                    </property>
-                    <property name="font">
-                     <font>
-                      <family>Times New Roman</family>
-                      <pointsize>13</pointsize>
-                     </font>
-                    </property>
-                    <property name="icon">
-                     <iconset resource="../Res.qrc">
-                      <normaloff>:/Icons/Icons/came.png</normaloff>:/Icons/Icons/came.png</iconset>
-                    </property>
-                   </column>
-                   <column>
-                    <property name="text">
-                     <string>Ketdi</string>
-                    </property>
-                    <property name="font">
-                     <font>
-                      <family>Times New Roman</family>
-                      <pointsize>13</pointsize>
-                     </font>
-                    </property>
-                    <property name="icon">
-                     <iconset resource="../Res.qrc">
-                      <normaloff>:/Icons/Icons/leave.png</normaloff>:/Icons/Icons/leave.png</iconset>
-                    </property>
-                   </column>
-                   <column>
-                    <property name="text">
-                     <string>Hozirda</string>
-                    </property>
-                    <property name="font">
-                     <font>
-                      <family>Times New Roman</family>
-                      <pointsize>13</pointsize>
-                     </font>
-                    </property>
-                    <property name="icon">
-                     <iconset resource="../Res.qrc">
-                      <normaloff>:/Icons/Icons/update.png</normaloff>
-                      <normalon>:/Icons/update.png</normalon>:/Icons/Icons/update.png</iconset>
-                    </property>
-                   </column>
+                   </property>
+                   <widget class="QWidget" name="tab_3">
+                    <attribute name="icon">
+                     <iconset>
+                      <normalon>:/Icons/Icons/table_view.png</normalon>
+                     </iconset>
+                    </attribute>
+                    <attribute name="title">
+                     <string>Jadval</string>
+                    </attribute>
+                    <layout class="QGridLayout" name="gridLayout_8">
+                     <property name="leftMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>0</number>
+                     </property>
+                     <item row="0" column="0">
+                      <widget class="QTableWidget" name="tableWidget_4">
+                       <property name="font">
+                        <font>
+                         <family>Times New Roman</family>
+                         <pointsize>12</pointsize>
+                        </font>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true"/>
+                       </property>
+                       <property name="frameShape">
+                        <enum>QFrame::Panel</enum>
+                       </property>
+                       <property name="editTriggers">
+                        <set>QAbstractItemView::NoEditTriggers</set>
+                       </property>
+                       <property name="alternatingRowColors">
+                        <bool>false</bool>
+                       </property>
+                       <property name="selectionMode">
+                        <enum>QAbstractItemView::SingleSelection</enum>
+                       </property>
+                       <property name="selectionBehavior">
+                        <enum>QAbstractItemView::SelectRows</enum>
+                       </property>
+                       <property name="verticalScrollMode">
+                        <enum>QAbstractItemView::ScrollPerPixel</enum>
+                       </property>
+                       <property name="horizontalScrollMode">
+                        <enum>QAbstractItemView::ScrollPerPixel</enum>
+                       </property>
+                       <property name="rowCount">
+                        <number>0</number>
+                       </property>
+                       <attribute name="horizontalHeaderHighlightSections">
+                        <bool>false</bool>
+                       </attribute>
+                       <attribute name="horizontalHeaderStretchLastSection">
+                        <bool>true</bool>
+                       </attribute>
+                       <column>
+                        <property name="text">
+                         <string>Sanalar</string>
+                        </property>
+                        <property name="font">
+                         <font>
+                          <family>Times New Roman</family>
+                          <pointsize>13</pointsize>
+                         </font>
+                        </property>
+                       </column>
+                       <column>
+                        <property name="text">
+                         <string>Keldi</string>
+                        </property>
+                        <property name="font">
+                         <font>
+                          <family>Times New Roman</family>
+                          <pointsize>13</pointsize>
+                         </font>
+                        </property>
+                        <property name="icon">
+                         <iconset resource="../Res.qrc">
+                          <normaloff>:/Icons/Icons/came.png</normaloff>:/Icons/Icons/came.png</iconset>
+                        </property>
+                       </column>
+                       <column>
+                        <property name="text">
+                         <string>Ketdi</string>
+                        </property>
+                        <property name="font">
+                         <font>
+                          <family>Times New Roman</family>
+                          <pointsize>13</pointsize>
+                         </font>
+                        </property>
+                        <property name="icon">
+                         <iconset resource="../Res.qrc">
+                          <normaloff>:/Icons/Icons/leave.png</normaloff>:/Icons/Icons/leave.png</iconset>
+                        </property>
+                       </column>
+                       <column>
+                        <property name="text">
+                         <string>Hozirda</string>
+                        </property>
+                        <property name="font">
+                         <font>
+                          <family>Times New Roman</family>
+                          <pointsize>13</pointsize>
+                         </font>
+                        </property>
+                        <property name="icon">
+                         <iconset resource="../Res.qrc">
+                          <normaloff>:/Icons/Icons/update.png</normaloff>
+                          <normalon>:/Icons/update.png</normalon>:/Icons/Icons/update.png</iconset>
+                        </property>
+                       </column>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                   <widget class="QWidget" name="tab_4">
+                    <attribute name="icon">
+                     <iconset>
+                      <normalon>:/Icons/Icons/pie_chart.png</normalon>
+                     </iconset>
+                    </attribute>
+                    <attribute name="title">
+                     <string>Grafik</string>
+                    </attribute>
+                    <layout class="QGridLayout" name="gridLayout_10">
+                     <property name="leftMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>0</number>
+                     </property>
+                     <item row="0" column="0">
+                      <widget class="QGraphicsView" name="graphicsView"/>
+                     </item>
+                    </layout>
+                   </widget>
                   </widget>
                  </item>
                 </layout>
@@ -2110,7 +2226,7 @@ background-color: rgb(250, 250, 250);
                    <property name="font">
                     <font>
                      <family>Times New Roman</family>
-                     <pointsize>13</pointsize>
+                     <pointsize>12</pointsize>
                     </font>
                    </property>
                    <property name="styleSheet">

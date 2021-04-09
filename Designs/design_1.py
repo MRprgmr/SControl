@@ -48,7 +48,7 @@ class Ui_MainWindow(object):
         self.tabWidget.setFocusPolicy(QtCore.Qt.ClickFocus)
         self.tabWidget.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.tabWidget.setAutoFillBackground(False)
-        self.tabWidget.setStyleSheet("QTabWidget::pane {\n"
+        self.tabWidget.setStyleSheet("#tabWidget::pane {\n"
 "\n"
 "   border-top: 3px solid #79c0fa;\n"
 "    border-radius: 8px;\n"
@@ -90,6 +90,9 @@ class Ui_MainWindow(object):
 "    min-width: 7ex;\n"
 "    margin-right: 2px;\n"
 "    padding: 3px 16px 2px 16px;\n"
+"}\n"
+"QHeaderView::section{\n"
+"height: 22px;\n"
 "}\n"
 "")
         self.tabWidget.setLocale(QtCore.QLocale(QtCore.QLocale.Uzbek, QtCore.QLocale.Uzbekistan))
@@ -955,7 +958,7 @@ class Ui_MainWindow(object):
         self.tableWidget_3 = QtWidgets.QTableWidget(self.groupBox_4)
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
-        font.setPointSize(14)
+        font.setPointSize(13)
         self.tableWidget_3.setFont(font)
         self.tableWidget_3.setStyleSheet("")
         self.tableWidget_3.setFrameShape(QtWidgets.QFrame.Panel)
@@ -1014,12 +1017,59 @@ class Ui_MainWindow(object):
 "}")
         self.groupBox_6.setObjectName("groupBox_6")
         self.gridLayout_7 = QtWidgets.QGridLayout(self.groupBox_6)
-        self.gridLayout_7.setContentsMargins(5, 10, 5, 5)
+        self.gridLayout_7.setContentsMargins(0, 1, 0, 0)
         self.gridLayout_7.setObjectName("gridLayout_7")
-        self.tableWidget_4 = QtWidgets.QTableWidget(self.groupBox_6)
+        self.tabWidget_2 = QtWidgets.QTabWidget(self.groupBox_6)
+        font = QtGui.QFont()
+        font.setFamily("Georgia")
+        self.tabWidget_2.setFont(font)
+        self.tabWidget_2.setStyleSheet("QTabBar::tab {\n"
+" border: 1px solid #79c0fa;\n"
+"border-bottom: none;\n"
+"border-radius: 0px;\n"
+"border-bottom-left-radius: 0px;\n"
+"border-bottom-right-radius: 0px;\n"
+"\n"
+"}\n"
+"\n"
+"QTabBar::tab:selected {\n"
+"    background: #0c8eee;\n"
+"    border: 1px solid #0c8eee;    \n"
+"    color: white;\n"
+"}\n"
+"\n"
+"QTabBar::tab:!selected {\n"
+"     background: #79c0fa;\n"
+"}\n"
+"\n"
+"QTabBar::tab:!selected:hover {\n"
+"   background: #63b7fc;\n"
+"    border: #63b7fc;\n"
+"color: white;\n"
+"}\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"QTabBar::tab:top, QTabBar::tab:bottom {\n"
+"    min-width: 7ex;\n"
+"    margin-right: 0px;\n"
+"    padding: 3px 16px 2px 16px;\n"
+"}")
+        self.tabWidget_2.setTabShape(QtWidgets.QTabWidget.Rounded)
+        self.tabWidget_2.setIconSize(QtCore.QSize(13, 13))
+        self.tabWidget_2.setElideMode(QtCore.Qt.ElideNone)
+        self.tabWidget_2.setUsesScrollButtons(True)
+        self.tabWidget_2.setObjectName("tabWidget_2")
+        self.tab_3 = QtWidgets.QWidget()
+        self.tab_3.setObjectName("tab_3")
+        self.gridLayout_8 = QtWidgets.QGridLayout(self.tab_3)
+        self.gridLayout_8.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout_8.setObjectName("gridLayout_8")
+        self.tableWidget_4 = QtWidgets.QTableWidget(self.tab_3)
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
-        font.setPointSize(14)
+        font.setPointSize(12)
         self.tableWidget_4.setFont(font)
         self.tableWidget_4.setStyleSheet("")
         self.tableWidget_4.setFrameShape(QtWidgets.QFrame.Panel)
@@ -1068,7 +1118,22 @@ class Ui_MainWindow(object):
         self.tableWidget_4.setHorizontalHeaderItem(3, item)
         self.tableWidget_4.horizontalHeader().setHighlightSections(False)
         self.tableWidget_4.horizontalHeader().setStretchLastSection(True)
-        self.gridLayout_7.addWidget(self.tableWidget_4, 0, 0, 1, 1)
+        self.gridLayout_8.addWidget(self.tableWidget_4, 0, 0, 1, 1)
+        icon13 = QtGui.QIcon()
+        icon13.addPixmap(QtGui.QPixmap(":/Icons/Icons/table_view.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        self.tabWidget_2.addTab(self.tab_3, icon13, "")
+        self.tab_4 = QtWidgets.QWidget()
+        self.tab_4.setObjectName("tab_4")
+        self.gridLayout_10 = QtWidgets.QGridLayout(self.tab_4)
+        self.gridLayout_10.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout_10.setObjectName("gridLayout_10")
+        self.graphicsView = QtWidgets.QGraphicsView(self.tab_4)
+        self.graphicsView.setObjectName("graphicsView")
+        self.gridLayout_10.addWidget(self.graphicsView, 0, 0, 1, 1)
+        icon14 = QtGui.QIcon()
+        icon14.addPixmap(QtGui.QPixmap(":/Icons/Icons/pie_chart.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        self.tabWidget_2.addTab(self.tab_4, icon14, "")
+        self.gridLayout_7.addWidget(self.tabWidget_2, 0, 0, 1, 1)
         self.horizontalLayout_11.addWidget(self.groupBox_6)
         self.horizontalLayout_11.setStretch(0, 2)
         self.horizontalLayout_11.setStretch(1, 3)
@@ -1108,7 +1173,7 @@ class Ui_MainWindow(object):
         self.tableWidget_5 = QtWidgets.QTableWidget(self.groupBox_7)
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
-        font.setPointSize(13)
+        font.setPointSize(12)
         self.tableWidget_5.setFont(font)
         self.tableWidget_5.setStyleSheet("")
         self.tableWidget_5.setFrameShape(QtWidgets.QFrame.Panel)
@@ -1181,9 +1246,9 @@ class Ui_MainWindow(object):
 "border: 1px solid #50A5FF;\n"
 "}\n"
 "")
-        icon13 = QtGui.QIcon()
-        icon13.addPixmap(QtGui.QPixmap(":/Icons/Icons/edit_time.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
-        self.pushButton_8.setIcon(icon13)
+        icon15 = QtGui.QIcon()
+        icon15.addPixmap(QtGui.QPixmap(":/Icons/Icons/edit_time.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        self.pushButton_8.setIcon(icon15)
         self.pushButton_8.setIconSize(QtCore.QSize(28, 28))
         self.pushButton_8.setObjectName("pushButton_8")
         self.horizontalLayout_12.addWidget(self.pushButton_8)
@@ -1212,17 +1277,17 @@ class Ui_MainWindow(object):
 "border: 1px solid #50A5FF;\n"
 "}\n"
 "")
-        icon14 = QtGui.QIcon()
-        icon14.addPixmap(QtGui.QPixmap(":/Icons/Icons/camera.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
-        self.pushButton_10.setIcon(icon14)
+        icon16 = QtGui.QIcon()
+        icon16.addPixmap(QtGui.QPixmap(":/Icons/Icons/camera.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        self.pushButton_10.setIcon(icon16)
         self.pushButton_10.setIconSize(QtCore.QSize(28, 28))
         self.pushButton_10.setObjectName("pushButton_10")
         self.horizontalLayout_12.addWidget(self.pushButton_10)
         self.verticalLayout_3.addLayout(self.horizontalLayout_12)
         self.verticalLayout_5.addWidget(self.splitter_3)
-        icon15 = QtGui.QIcon()
-        icon15.addPixmap(QtGui.QPixmap(":/Icons/Icons/calendar2.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
-        self.tabWidget.addTab(self.tab_2, icon15, "")
+        icon17 = QtGui.QIcon()
+        icon17.addPixmap(QtGui.QPixmap(":/Icons/Icons/calendar2.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        self.tabWidget.addTab(self.tab_2, icon17, "")
         self.verticalLayout_6.addWidget(self.tabWidget)
         self.frame = QtWidgets.QFrame(self.centralwidget)
         self.frame.setMaximumSize(QtCore.QSize(16777215, 16))
@@ -1349,6 +1414,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         self.tabWidget.setCurrentIndex(0)
+        self.tabWidget_2.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -1429,6 +1495,8 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "Ketdi"))
         item = self.tableWidget_4.horizontalHeaderItem(3)
         item.setText(_translate("MainWindow", "Hozirda"))
+        self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_3), _translate("MainWindow", "Jadval"))
+        self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_4), _translate("MainWindow", "Grafik"))
         self.groupBox_7.setTitle(_translate("MainWindow", "Davomat"))
         self.pushButton_9.setText(_translate("MainWindow", "Sanani o\'chirish"))
         self.pushButton_8.setText(_translate("MainWindow", "Tahrirlash"))
