@@ -440,7 +440,7 @@ border-bottom-right-radius: 5px;
                 <widget class="QGroupBox" name="groupBox_3">
                  <property name="maximumSize">
                   <size>
-                   <width>218</width>
+                   <width>250</width>
                    <height>215</height>
                   </size>
                  </property>
@@ -451,274 +451,43 @@ border-bottom-right-radius: 5px;
                   </font>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">QGroupBox{
-   margin-top: 0.7em;
-border: none;
-}
-QGroupBox::title{
-    top: -3px;
-subcontrol-origin: margin;
-padding: 0 5px 0 5px;
-}</string>
+                  <string notr="true">background: white;</string>
                  </property>
                  <property name="title">
-                  <string>Umumiy ma'lumot:</string>
+                  <string/>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_3">
+                  <property name="sizeConstraint">
+                   <enum>QLayout::SetMaximumSize</enum>
+                  </property>
+                  <property name="leftMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="spacing">
+                   <number>0</number>
+                  </property>
                   <item row="0" column="0">
-                   <layout class="QVBoxLayout" name="verticalLayout_2">
-                    <property name="spacing">
-                     <number>10</number>
+                   <widget class="QChartView" name="graphicsView">
+                    <property name="frameShape">
+                     <enum>QFrame::NoFrame</enum>
                     </property>
-                    <property name="sizeConstraint">
-                     <enum>QLayout::SetFixedSize</enum>
-                    </property>
-                    <item>
-                     <layout class="QHBoxLayout" name="horizontalLayout_9">
-                      <item>
-                       <widget class="QLabel" name="label_7">
-                        <property name="font">
-                         <font>
-                          <family>Georgia</family>
-                          <pointsize>11</pointsize>
-                         </font>
-                        </property>
-                        <property name="text">
-                         <string>Sinflar:</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLineEdit" name="lineEdit_7">
-                        <property name="minimumSize">
-                         <size>
-                          <width>100</width>
-                          <height>20</height>
-                         </size>
-                        </property>
-                        <property name="maximumSize">
-                         <size>
-                          <width>100</width>
-                          <height>16777215</height>
-                         </size>
-                        </property>
-                        <property name="font">
-                         <font>
-                          <family>Arial</family>
-                          <pointsize>15</pointsize>
-                         </font>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">border-radius: 5px;
-border: 1px solid #add1f6;</string>
-                        </property>
-                        <property name="text">
-                         <string/>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignCenter</set>
-                        </property>
-                        <property name="readOnly">
-                         <bool>true</bool>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                    <item>
-                     <widget class="Line" name="line_7">
-                      <property name="styleSheet">
-                       <string notr="true"/>
-                      </property>
-                      <property name="lineWidth">
-                       <number>1</number>
-                      </property>
-                      <property name="midLineWidth">
-                       <number>0</number>
-                      </property>
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <layout class="QHBoxLayout" name="horizontalLayout_4">
-                      <item>
-                       <widget class="QLabel" name="label">
-                        <property name="font">
-                         <font>
-                          <family>Georgia</family>
-                          <pointsize>11</pointsize>
-                         </font>
-                        </property>
-                        <property name="text">
-                         <string>O'quvchilar:</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLineEdit" name="lineEdit_2">
-                        <property name="minimumSize">
-                         <size>
-                          <width>100</width>
-                          <height>20</height>
-                         </size>
-                        </property>
-                        <property name="maximumSize">
-                         <size>
-                          <width>100</width>
-                          <height>16777215</height>
-                         </size>
-                        </property>
-                        <property name="font">
-                         <font>
-                          <family>Arial</family>
-                          <pointsize>15</pointsize>
-                         </font>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">border-radius: 5px;
-border: 1px solid #add1f6;</string>
-                        </property>
-                        <property name="text">
-                         <string/>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignCenter</set>
-                        </property>
-                        <property name="readOnly">
-                         <bool>true</bool>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                    <item>
-                     <widget class="Line" name="line">
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <layout class="QHBoxLayout" name="horizontalLayout_5">
-                      <item>
-                       <widget class="QLabel" name="label_2">
-                        <property name="font">
-                         <font>
-                          <family>Georgia</family>
-                          <pointsize>11</pointsize>
-                         </font>
-                        </property>
-                        <property name="text">
-                         <string>O'gil bolalar:</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLineEdit" name="lineEdit_3">
-                        <property name="minimumSize">
-                         <size>
-                          <width>100</width>
-                          <height>20</height>
-                         </size>
-                        </property>
-                        <property name="maximumSize">
-                         <size>
-                          <width>100</width>
-                          <height>16777215</height>
-                         </size>
-                        </property>
-                        <property name="font">
-                         <font>
-                          <family>Arial</family>
-                          <pointsize>15</pointsize>
-                         </font>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">border-radius: 5px;
-border: 1px solid #add1f6;</string>
-                        </property>
-                        <property name="text">
-                         <string/>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignCenter</set>
-                        </property>
-                        <property name="readOnly">
-                         <bool>true</bool>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                    <item>
-                     <widget class="Line" name="line_2">
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <layout class="QHBoxLayout" name="horizontalLayout_6">
-                      <item>
-                       <widget class="QLabel" name="label_3">
-                        <property name="font">
-                         <font>
-                          <family>Georgia</family>
-                          <pointsize>11</pointsize>
-                         </font>
-                        </property>
-                        <property name="text">
-                         <string>Qiz bolalar:</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLineEdit" name="lineEdit_4">
-                        <property name="minimumSize">
-                         <size>
-                          <width>100</width>
-                          <height>20</height>
-                         </size>
-                        </property>
-                        <property name="maximumSize">
-                         <size>
-                          <width>100</width>
-                          <height>16777215</height>
-                         </size>
-                        </property>
-                        <property name="font">
-                         <font>
-                          <family>Arial</family>
-                          <pointsize>15</pointsize>
-                         </font>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">border-radius: 5px;
-border: 1px solid #add1f6;</string>
-                        </property>
-                        <property name="text">
-                         <string/>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignCenter</set>
-                        </property>
-                        <property name="readOnly">
-                         <bool>true</bool>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                   </layout>
+                   </widget>
                   </item>
                  </layout>
                 </widget>
                 <widget class="QGroupBox" name="groupBox_5">
                  <property name="maximumSize">
                   <size>
-                   <width>240</width>
+                   <width>220</width>
                    <height>215</height>
                   </size>
                  </property>
@@ -743,6 +512,18 @@ padding: 0 5px 0 5px;
                   <string>Maktab haqida:</string>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_9">
+                  <property name="leftMargin">
+                   <number>9</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>5</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>3</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>5</number>
+                  </property>
                   <item row="0" column="0">
                    <layout class="QVBoxLayout" name="verticalLayout_4">
                     <property name="spacing">
@@ -750,6 +531,9 @@ padding: 0 5px 0 5px;
                     </property>
                     <item>
                      <layout class="QHBoxLayout" name="horizontalLayout_10">
+                      <property name="spacing">
+                       <number>3</number>
+                      </property>
                       <item>
                        <widget class="QLabel" name="label_8">
                         <property name="font">
@@ -810,6 +594,9 @@ border-color: rgb(90, 170, 255);
                     </item>
                     <item>
                      <layout class="QHBoxLayout" name="horizontalLayout_7">
+                      <property name="spacing">
+                       <number>3</number>
+                      </property>
                       <item>
                        <widget class="QLabel" name="label_5">
                         <property name="font">
@@ -870,6 +657,9 @@ border-color: rgb(90, 170, 255);
                     </item>
                     <item>
                      <layout class="QHBoxLayout" name="horizontalLayout_8">
+                      <property name="spacing">
+                       <number>3</number>
+                      </property>
                       <item>
                        <widget class="QLabel" name="label_6">
                         <property name="font">
@@ -1166,41 +956,32 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
                  </spacer>
                 </item>
                 <item>
-                 <widget class="QCheckBox" name="checkBox">
-                  <property name="maximumSize">
-                   <size>
-                    <width>16777215</width>
-                    <height>16777215</height>
-                   </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <family>Georgia</family>
-                    <pointsize>11</pointsize>
-                   </font>
-                  </property>
+                 <widget class="QPushButton" name="pushButton_11">
                   <property name="styleSheet">
-                   <string notr="true">QCheckBox::indicator:unchecked{
-     image: url(:/Icons/Icons/unchecked.png);
- }
-QCheckBox::indicator:unchecked:hover{
-     image: url(:/Icons/Icons/unchecked_hover.png);
- }
-QCheckBox::indicator:checked{
-     image: url(:/Icons/Icons/checked.png);
- }
-QCheckBox::indicator:checked:hover{
-     image: url(:/Icons/Icons/checked_hover.png);
- }</string>
+                   <string notr="true">QPushButton{
+background: transparent;
+}
+QPushButton::hover{
+border-radius: 5px;
+background: rgba(58, 247, 240, 0.2);
+}
+QPushButton::pressed{
+background: rgba(58, 247, 240, 0.3);
+}</string>
                   </property>
                   <property name="text">
-                   <string>Rasmi</string>
+                   <string/>
                   </property>
-                  <property name="checkable">
-                   <bool>true</bool>
+                  <property name="icon">
+                   <iconset>
+                    <normalon>:/Icons/Icons/synchronize.png</normalon>
+                   </iconset>
                   </property>
-                  <property name="checked">
-                   <bool>true</bool>
+                  <property name="iconSize">
+                   <size>
+                    <width>26</width>
+                    <height>26</height>
+                   </size>
                   </property>
                  </widget>
                 </item>
@@ -1569,7 +1350,7 @@ o'quvchi</string>
                  <enum>Qt::SolidLine</enum>
                 </property>
                 <property name="sortingEnabled">
-                 <bool>true</bool>
+                 <bool>false</bool>
                 </property>
                 <property name="wordWrap">
                  <bool>true</bool>
@@ -1604,17 +1385,6 @@ o'quvchi</string>
                 <column>
                  <property name="text">
                   <string>id</string>
-                 </property>
-                </column>
-                <column>
-                 <property name="text">
-                  <string>Rasmi</string>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <family>Georgia</family>
-                   <pointsize>10</pointsize>
-                  </font>
                  </property>
                 </column>
                 <column>
@@ -2162,7 +1932,7 @@ QTabBar::tab:top, QTabBar::tab:bottom {
                       <number>0</number>
                      </property>
                      <item row="0" column="0">
-                      <widget class="QGraphicsView" name="graphicsView"/>
+                      <layout class="QHBoxLayout" name="horizontalLayout_15"/>
                      </item>
                     </layout>
                    </widget>
@@ -2778,6 +2548,13 @@ background: #ec1c24;
    </layout>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QChartView</class>
+   <extends>QGraphicsView</extends>
+   <header>PyQt5.QtChart</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../Res.qrc"/>
  </resources>
