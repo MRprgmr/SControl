@@ -5,6 +5,7 @@ import socket
 import random
 import re
 import sqlite3
+from pygame import mixer
 import string
 import sys
 import time
@@ -18,10 +19,10 @@ import cv2
 import numpy as np
 import qrcode
 from PIL import Image, ImageDraw, ImageFont, ImageQt
+from PyQt5.QtChart import QChart, QChartView, QPieSeries, QPieSlice
 from PyQt5.QtCore import Qt, QThread, QPoint, QSize, QRectF
 from PyQt5.QtGui import QPixmap, QImage, QFont, QIcon, QColor, QPainter, QMovie, qRgb, QScreen, QResizeEvent, QBrush, QPen
 from PyQt5.QtWidgets import QMainWindow, QMessageBox, QLabel, QApplication, QTableWidgetItem, QFileDialog, QDesktopWidget, QGraphicsView, QGraphicsScene, QGraphicsEllipseItem
-from playsound import playsound
 from func_timeout import func_timeout, FunctionTimedOut
 from Designs import design_1
 from Designs import design_2
@@ -31,6 +32,21 @@ from Designs import design_6
 from Designs import design_7
 from Designs import  loading
 from telebot import TeleBot
+
+mixer.init()
+
+sound_correct = mixer.Sound('./correct.ogg')
+sound_wrong = mixer.Sound('./wrong.ogg')
+
+def play_correct():
+    sound_correct.play()
+    time.sleep(1)
+    sound_correct.stop()
+
+def play_wrong():
+    sound_wrong.play()
+    time.sleep(1)
+    sound_wrong.stop()
 
 # bot details
 token = "1694103677:AAGuFWePbKghZGsu3_wJkQJeAUSFQb-TAxI"
@@ -155,7 +171,7 @@ class Main_window(QMainWindow, design_1.Ui_MainWindow):
         self.pushButton_8.clicked.connect(self.open_window_5_button)
         self.pushButton_9.clicked.connect(self.delete_date)
         self.pushButton_10.clicked.connect(self.open_window_6)
-        self.checkBox.clicked.connect(self.hide_img_row)
+        self.pushButton_11.clicked.connect(self.update_window)
         self.lineEdit_5.textChanged.connect(self.about_data_changed)
         self.lineEdit_6.textChanged.connect(self.about_data_changed)
         self.lineEdit_8.textChanged.connect(self.about_data_changed)
@@ -398,25 +414,24 @@ class Main_window(QMainWindow, design_1.Ui_MainWindow):
     def format_tables(self):
         # 1
         self.tableWidget_2.setColumnHidden(0, True)
-        self.tableWidget_2.setColumnWidth(1, 160)
-        self.tableWidget_2.setColumnWidth(2, 250)
+        self.tableWidget_2.setColumnWidth(1, 120)
+        self.tableWidget_2.setColumnWidth(2, 200)
         self.tableWidget_2.setColumnWidth(3, 150)
         self.tableWidget_2.setColumnWidth(4, 120)
         self.tableWidget_2.setColumnWidth(5, 120)
         # 2
         self.tableWidget.setColumnHidden(0, True)
-        self.tableWidget.setColumnWidth(1, 60)
-        self.tableWidget.setColumnWidth(2, 50)
-        self.tableWidget.setColumnWidth(3, 118)
-        self.tableWidget.setColumnWidth(4, 118)
-        self.tableWidget.setColumnWidth(5, 118)
-        self.tableWidget.setColumnWidth(6, 120)
-        self.tableWidget.setColumnWidth(7, 60)
-        self.tableWidget.setColumnWidth(8, 110)
-        self.tableWidget.setColumnWidth(9, 130)
-        self.tableWidget.setColumnWidth(10, 116)
-        self.tableWidget.setColumnWidth(11, 100)
-        self.tableWidget.setColumnWidth(12, 150)
+        self.tableWidget.setColumnWidth(1, 50)
+        self.tableWidget.setColumnWidth(2, 120)
+        self.tableWidget.setColumnWidth(3, 120)
+        self.tableWidget.setColumnWidth(4, 120)
+        self.tableWidget.setColumnWidth(5, 120)
+        self.tableWidget.setColumnWidth(6, 60)
+        self.tableWidget.setColumnWidth(7, 110)
+        self.tableWidget.setColumnWidth(8, 130)
+        self.tableWidget.setColumnWidth(9, 116)
+        self.tableWidget.setColumnWidth(10, 100)
+        self.tableWidget.setColumnWidth(11, 150)
         # 3
         self.tableWidget_3.setColumnWidth(0, 150)
         # 4
@@ -427,14 +442,16 @@ class Main_window(QMainWindow, design_1.Ui_MainWindow):
 
     def class_changed(self, name):
         if name == "Hammasi":
-            self.cur.execute("select * from pupils order by surname")
-            a = self.cur.fetchall()
-            self.write_pupils(a)
+            pupils = self.cur.execute("select * from pupils order by surname").fetchall()
+            genders = [len(self.cur.execute("""select id from pupils where gender="O'g'il" """).fetchall()), \
+                       len(self.cur.execute("""select id from pupils where gender="Qiz" """).fetchall())]
         else:
-            self.cur.execute(
-                "select * from pupils where class=? order by surname", [name])
-            a = self.cur.fetchall()
-            self.write_pupils(a)
+            pupils = self.cur.execute(
+                "select * from pupils where class=? order by surname", [name]).fetchall()
+            genders = [len(self.cur.execute("""select id from pupils where gender="O'g'il" and class=?""", [name]).fetchall()), \
+                       len(self.cur.execute("""select id from pupils where gender="Qiz" and class=?""", [name]).fetchall())]
+        self.write_pupils(pupils)
+        self.draw_gender_graphic(genders)
 
     def class_changed_2(self):
         try:
@@ -476,34 +493,23 @@ class Main_window(QMainWindow, design_1.Ui_MainWindow):
             self.tabWidget.setCurrentIndex(0)
             self.lineEdit_8.setFocus()
 
-    def hide_img_row(self):
-        if self.checkBox.isChecked():
-            self.tableWidget.setColumnHidden(1, False)
-            self.tableWidget.verticalHeader().setDefaultSectionSize(80)
-        else:
-            self.tableWidget.setColumnHidden(1, True)
-            self.tableWidget.verticalHeader().setDefaultSectionSize(30)
-
     def write_pupils(self, a):
         self.tableWidget.setRowCount(0)
         for row in range(0, len(a)):
             b = self.tableWidget.rowCount()
             self.tableWidget.insertRow(b)
             self.tableWidget.setItem(b, 0, QTableWidgetItem(str(a[b][0])))
-            if a[b][1] != "":
-                item = self.get_image(a[b][1])
-                self.tableWidget.setCellWidget(b, 1, item)
-            self.tableWidget.setItem(b, 2, QTableWidgetItem(a[b][3]))
-            self.tableWidget.setItem(b, 3, QTableWidgetItem(a[b][5]))
-            self.tableWidget.setItem(b, 4, QTableWidgetItem(a[b][6]))
-            self.tableWidget.setItem(b, 5, QTableWidgetItem(a[b][7]))
-            self.tableWidget.setItem(b, 6, QTableWidgetItem(a[b][8]))
-            self.tableWidget.setItem(b, 7, QTableWidgetItem(a[b][4]))
-            self.tableWidget.setItem(b, 8, QTableWidgetItem(a[b][9]))
-            self.tableWidget.setItem(b, 9, QTableWidgetItem(a[b][11]))
-            self.tableWidget.setItem(b, 10, QTableWidgetItem(a[b][12]))
-            self.tableWidget.setItem(b, 11, QTableWidgetItem(a[b][13]))
-            self.tableWidget.setItem(b, 12, QTableWidgetItem(a[b][10]))
+            self.tableWidget.setItem(b, 1, QTableWidgetItem(a[b][3]))
+            self.tableWidget.setItem(b, 2, QTableWidgetItem(a[b][5]))
+            self.tableWidget.setItem(b, 3, QTableWidgetItem(a[b][6]))
+            self.tableWidget.setItem(b, 4, QTableWidgetItem(a[b][7]))
+            self.tableWidget.setItem(b, 5, QTableWidgetItem(a[b][8]))
+            self.tableWidget.setItem(b, 6, QTableWidgetItem(a[b][4]))
+            self.tableWidget.setItem(b, 7, QTableWidgetItem(a[b][9]))
+            self.tableWidget.setItem(b, 8, QTableWidgetItem(a[b][11]))
+            self.tableWidget.setItem(b, 9, QTableWidgetItem(a[b][12]))
+            self.tableWidget.setItem(b, 10, QTableWidgetItem(a[b][13]))
+            self.tableWidget.setItem(b, 11, QTableWidgetItem(a[b][10]))
 
     # write pupils' attendance
     def write_attendance(self, key):
@@ -555,7 +561,7 @@ class Main_window(QMainWindow, design_1.Ui_MainWindow):
                     elif len(i[0].split(", ")) == 1:
                         c += 1
             if c == 0:
-                k = (f"0/{len(a)} 0%", "0/0, 100%", f"0/{len(a)} 0%")
+                k = (f"0/{len(a)}, 0%", "0/0, 100%", f"0/{len(a)}, 0%")
             else:
                 k = (f"{c}/{len(a)}, {int(c / len(a) * 100)}%", f"{l}/{c}, {int(l / c * 100)}%",
                      f"{c - l}/{len(a)}, {int((c - l) / len(a) * 100)}%")
@@ -580,23 +586,17 @@ class Main_window(QMainWindow, design_1.Ui_MainWindow):
             self.tableWidget_4.setItem(i, 1, QTableWidgetItem(status[0]))
             self.tableWidget_4.setItem(i, 2, QTableWidgetItem(status[1]))
             self.tableWidget_4.setItem(i, 3, QTableWidgetItem(status[2]))
+            if i == len(names)-1:
+                self.write_graphic(status)
         self.tableWidget_4.item(len(names)-1,0).setForeground(QColor(0, 139, 242))
 
     def update_window(self):
         loading_window.showMaximized()
-        # total pupils groupbox
-        self.cur.execute("""select * from pupils where gender="O'g'il" """)
-        self.lineEdit_3.setText(str(len(self.cur.fetchall())))
-        self.cur.execute("""select * from pupils where gender="Qiz" """)
-        self.lineEdit_4.setText(str(len(self.cur.fetchall())))
-        self.cur.execute("""select * from pupils""")
-        self.lineEdit_2.setText(str(len(self.cur.fetchall())))
-        self.cur.execute("""select * from classes""")
-        self.lineEdit_7.setText(str(len(self.cur.fetchall())))
         # table of classes
         self.tableWidget_2.setRowCount(0)
         self.cur.execute("select * from classes order by name")
         a = self.cur.fetchall()
+        tg, tb = 0, 0
         for row in range(0, len(a)):
             b = self.tableWidget_2.rowCount()
             self.tableWidget_2.insertRow(b)
@@ -604,21 +604,28 @@ class Main_window(QMainWindow, design_1.Ui_MainWindow):
             self.tableWidget_2.setItem(b, 1, QTableWidgetItem(a[b][1]))
             self.tableWidget_2.setItem(b, 2, QTableWidgetItem(a[b][2]))
             self.cur.execute(
-                """select id from pupils where class=? and gender='Qiz' """, [a[b][1]])
+                """select id from pupils where class=? and gender='Qiz'""", [a[b][1]])
             girls = len(self.cur.fetchall())
+            tg += girls
             self.cur.execute(
                 """select id from pupils where class=? and gender="O'g'il" """, [a[b][1]])
             boys = len(self.cur.fetchall())
+            tb += boys
             self.tableWidget_2.setItem(
                 b, 3, QTableWidgetItem(str(girls + boys)))
             self.tableWidget_2.setItem(b, 4, QTableWidgetItem(str(boys)))
             self.tableWidget_2.setItem(b, 5, QTableWidgetItem(str(girls)))
+        b = self.tableWidget_2.rowCount()
+        self.tableWidget_2.insertRow(b)
+        self.tableWidget_2.setItem(b, 1, QTableWidgetItem("Hammasi"))
+        self.tableWidget_2.setItem(b, 4, QTableWidgetItem(str(tb)))
+        self.tableWidget_2.setItem(b, 5, QTableWidgetItem(str(tg)))
+        self.tableWidget_2.setItem(b, 3, QTableWidgetItem(str(tg+tb)))
         # classes combobox
         self.comboBox.clear()
+        self.comboBox.addItem("Hammasi")
         for i in a:
             self.comboBox.addItem(i[1])
-        self.comboBox.addItem("Hammasi")
-        self.comboBox.setCurrentText("Hammasi")
         # about school
         self.cur.execute("select * from school")
         a = self.cur.fetchone()
@@ -641,27 +648,62 @@ class Main_window(QMainWindow, design_1.Ui_MainWindow):
         self.tableWidget_3.insertRow(len(a))
         self.tableWidget_3.setItem(len(a), 0, QTableWidgetItem("Hammasi"))
         self.write_attendance("Hammasi")
-        self.write_graphic()
         loading_window.Close()
 
-    def write_graphic(self):
-        scene = QGraphicsScene()
-        view = QGraphicsView(scene, self.graphicsView)
-        persents = [50, 30, 10, 10]
-        total = sum(persents)
-        set_angle = 0
-        cnt = 0
-        colours = [QColor(255, 0, 0), QColor(0, 255, 0), QColor(0, 0, 255), QColor(255, 255, 0)]
-        for persent in persents:
-            angle = round(float(persent * 5760) / total)
-            persent = QGraphicsEllipseItem(0, 0, 200, 200)
-            persent.setPos(0, 0)
-            persent.setStartAngle(set_angle)
-            persent.setSpanAngle(angle)
-            persent.setBrush(colours[cnt])
-            set_angle += angle
-            cnt += 1
-            scene.addItem(persent)
+    def draw_gender_graphic(self, data):
+        if sum(data) != 0:
+            gs = QPieSeries()
+            gs.append("boys", data[0])
+            gs.append("girls", data[1])
+            gs.setPieSize(150)
+            gs.setLabelsVisible(True)
+            gs.setLabelsPosition(QPieSlice.LabelInsideHorizontal)
+            b, g = gs.slices()
+
+            g.setPen(QPen(QColor('#ffffff'), 2))
+            g.setBrush(QColor(237, 28, 36))
+            b.setPen(QPen(QColor('#ffffff'), 2))
+            b.setBrush(QColor(35, 170, 255))
+            b.setLabel(f"{int(data[0] / sum(data)*100)}%")
+            g.setLabel(f"{int(100 - data[0] / sum(data) * 100)}%")
+            gchart = QChart()
+            gchart.setBackgroundBrush(QColor(210, 220, 245))
+            gchart.addSeries(gs)
+            gchart.setAnimationOptions(QChart.SeriesAnimations)
+            gchart.setTitle("Sinf ma'lumotlari")
+            gchart.legend().markers(gs)[0].setLabel("O'gil bolalar")
+            gchart.legend().markers(gs)[1].setLabel("Qiz bolalar")
+            self.graphicsView.setChart(gchart)
+
+    def write_graphic(self, data):
+        c, s = data[0].split(', ')[0].split('/')
+        c=int(c)
+        s=int(s)
+        ps = QPieSeries()
+        ps.append(f"Keldi {c} ta", c)
+        ps.append(f"Kelmadi {s - c}", s - c)
+        ps.setPieSize(0.8)
+        came, dcame = ps.slices()
+        ps.setLabelsVisible(True)
+        ps.setLabelsPosition(QPieSlice.LabelInsideHorizontal)
+        came.setPen(QPen(QColor('#ffffff'), 2))
+        came.setBrush(QColor('#9ede73'))
+        came.setLabel(f"{int(c/s*100)}%")
+        dcame.setLabel(f"{100-int(c/s*100)}%")
+        dcame.setPen(QPen(QColor('#ffffff'), 2))
+        dcame.setBrush(QColor(255, 170, 30))
+        chart = QChart()
+        chart.addSeries(ps)
+        chart.legend().setAlignment(Qt.AlignBottom)
+        chart.setAnimationOptions(QChart.SeriesAnimations)
+        chart.setTitle("Bugungi davomat:")
+        chart.legend().markers(ps)[0].setLabel(f"Keldi {c} ta")
+        chart.legend().markers(ps)[1].setLabel(f"Kelmadi {s-c} ta")
+        chart.setBackgroundBrush(QColor(210, 220, 245))
+        chartview = QChartView(chart)
+        for i in reversed(range(self.horizontalLayout_15.count())):
+            self.horizontalLayout_15.itemAt(i).widget().deleteLater()
+        self.horizontalLayout_15.addWidget(chartview)
 
     def get_image(self, image):
         imageLabel = QLabel()
@@ -744,7 +786,7 @@ class Window_2(QMainWindow, design_2.Ui_MainWindow):
         strs = string.ascii_letters
         num = string.digits
         res = "".join(random.choice(strs + num) for _ in range(length))
-        return res
+        return enycrypt(res)
 
     def finish(self):
         if "" in [self.lineEdit.text(), self.lineEdit_2.text(), self.lineEdit_3.text(), self.lineEdit_5.text(),
@@ -1099,9 +1141,12 @@ class Window_6(QMainWindow, design_6.Ui_MainWindow):
                         self.notifications[-1].start()
                     if w1.w6.volume:
                         try:
-                            playsound("./correct.wav")
+                            play_correct()
                         except:
                             pass
+                else:
+                    if w1.w6.volume:
+                        play_wrong()
                 self.last_time = time.perf_counter()
                 time.sleep(1)
 
@@ -1171,7 +1216,7 @@ class Window_6(QMainWindow, design_6.Ui_MainWindow):
                                     text = "Tasdiqlandi"
                             else:
                                 color = (240, 0, 0)
-                                color_text = (255, 85, 255)
+                                color_text = (71, 71, 211)
                                 text = "Mavjud emas"
 
                             # qr shape
@@ -1201,7 +1246,6 @@ class send_to_parents(QThread):
         self.id = id
 
     def run(self):
-        print("ok")
         cur.execute(f"select * from pupils where id={self.id}")
         data = cur.fetchone()
         cur.execute("select * from school")
@@ -1347,28 +1391,24 @@ def resource_path(relative_path):
 
 
 if __name__ == '__main__':
-    try:
-        if not (os.path.exists(os.getenv("APPDATA") + "\SControl")):
-            os.mkdir(os.getenv("APPDATA") + "\SControl")
-        database = os.getenv("APPDATA") + "\SControl\data.db"
-        app = QApplication(sys.argv)
-        loading_window = Loading_frame()
-        con = sqlite3.connect(database, check_same_thread=False)
-        cur = con.cursor()
-        if os.path.exists("license.bin"):
-            f = open("license.bin", "rb")
-            if enycrypt(get_mac()) == f.read().decode("utf8"):
-                w1 = Main_window()
-                w1.showMaximized()
-            else:
-                w7 = Window_7()
-                w7.show()
-            f.close()
+    if not (os.path.exists(os.getenv("APPDATA") + "\SControl")):
+        os.mkdir(os.getenv("APPDATA") + "\SControl")
+    database = os.getenv("APPDATA") + "\SControl\data.db"
+    app = QApplication(sys.argv)
+    loading_window = Loading_frame()
+    con = sqlite3.connect(database, check_same_thread=False)
+    cur = con.cursor()
+    if os.path.exists("license.bin"):
+        f = open("license.bin", "rb")
+        if enycrypt(get_mac()) == f.read().decode("utf8"):
+            w1 = Main_window()
+            w1.showMaximized()
         else:
             w7 = Window_7()
             w7.show()
-            open("license.bin", "wb")
-        sys.exit(app.exec_())
-    except Exception as er:
-        with open("logs.txt", "w+") as f:
-            f.write(str(er))
+        f.close()
+    else:
+        w7 = Window_7()
+        w7.show()
+        open("license.bin", "wb")
+    sys.exit(app.exec_())
