@@ -29,7 +29,6 @@ def extract(frame):
     gray = cv2.GaussianBlur(gray, (BLUR_VALUE, BLUR_VALUE), 0)
     edged = cv2.Canny(gray, 30, 200)
     contours, hierarchy = cv2.findContours(edged.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-    squares = []
     square_indices = []
     i = 0
     for c in contours:
@@ -38,13 +37,8 @@ def extract(frame):
         approx = cv2.approxPolyDP(c, 0.03 * peri, True)
         if len(approx) == 4:
             if area > 25 and 1 - SQUARE_TOLERANCE < math.fabs(
-                    (peri / 4) ** 2) / area < 1 + SQUARE_TOLERANCE and count_children(hierarchy[0],
-                                                                                      i) >= 2 and has_square_parent(
-                    hierarchy[0], square_indices, i) is False:
-                squares.append(approx)
-                break
+                    (peri / 4) ** 2) / area < 1 + SQUARE_TOLERANCE and count_children(hierarchy[0], i) >= 2 \
+                    and has_square_parent(hierarchy[0], square_indices, i) is False:
+                return True
         i += 1
-    if len(squares) != 0:
-        return True
-    else:
-        return False
+    return False

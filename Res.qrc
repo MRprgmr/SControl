@@ -1,19 +1,29 @@
 <RCC>
   <qresource prefix="Icons">
+    <file>Icons/synchronize.png</file>
+    <file>Icons/pie_chart.png</file>
+    <file>Icons/table_view.png</file>
+    <file>Icons/gear.gif</file>
+    <file>Icons/send_message.png</file>
+    <file>Icons/activate_key.png</file>
+    <file>Icons/checked_hover.png</file>
+    <file>Icons/unchecked_hover.png</file>
+    <file>Icons/calendar2.png</file>
+    <file>Icons/unchecked.png</file>
+    <file>Icons/checked.png</file>
     <file>Icons/calendar2.png</file>
     <file>Icons/save.png</file>
+    <file>Icons/edit_time.png</file>
     <file>Icons/copy.png</file>
     <file>Icons/key.png</file>
     <file>Icons/transparent.png</file>
     <file>Icons/cart.jpg</file>
     <file>Icons/telegram.png</file>
-    <file>Icons/icon.png</file>
     <file>Icons/volume_on.png</file>
     <file>Icons/volume_off.png</file>
     <file>Icons/-.png</file>
     <file>Icons/+.png</file>
     <file>Icons/add_class.png</file>
-    <file>Icons/add_date.png</file>
     <file>Icons/add_pupil.png</file>
     <file>Icons/came.png</file>
     <file>Icons/camera.png</file>
